@@ -1,5 +1,5 @@
 [package]
-name = "UI_Clock"
+name = "ambient_ui_clock"
 version = "0.1.0"
 edition = "2021"
 
