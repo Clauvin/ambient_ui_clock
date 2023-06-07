@@ -2,7 +2,8 @@ use ambient_api::prelude::*;
 
 const clock_x_position: f32 = 500.;
 const clock_y_position: f32 = 375.;
-const clock_ray: f32 = 500.;
+const clock_ray: f32 = 250.;
+const hour_ray: f32 = 40.;
 
 fn create_clock_border_color() -> Vec4 {
     vec4(0.2, 0.1, 0.6, 1.)
@@ -24,18 +25,18 @@ fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
 
 fn DrawCircle(x_position: f32, y_position: f32, ray: f32) -> Element{
     Rectangle.el()
-        .with(width(), ray/2.)
-        .with(height(), ray/2.)
-        .with(translation(), vec3(x_position-ray/2., y_position-ray/2., 0.01))
+        .with(width(), ray)
+        .with(height(), ray)
+        .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
         .with(border_color(), create_clock_border_color())
         .with(border_thickness(), 4.)
-        .with(border_radius(), vec4(ray/4.,ray/4.,ray/4.,ray/4.))
+        .with(border_radius(), vec4(ray/2.,ray/2.,ray/2.,ray/2.))
 }
 
 fn DrawHand(x: f32, y: f32) -> Element {
     Line.el()
     .with(line_from(), vec3(x, y, 0.0))
-    .with(line_to(), vec3(x, y-30., 0.0))
+    .with(line_to(), vec3(x, y-hour_ray, 0.0))
     .with(line_width(), 4.)
     .with(background_color(), vec4(0.6, 0.2, 0.2, 1.))
 }
@@ -50,8 +51,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
         CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray),
-        DrawStaticHourHand(clock_x_position-clock_ray/4., clock_y_position-clock_ray/4.)
-    ])
+        DrawStaticHourHand(clock_x_position-clock_ray/2., clock_y_position-clock_ray/2.)    ])
 }
 
 
