@@ -4,11 +4,13 @@ fn create_clock_border_color() -> Vec4 {
     vec4(0.2, 0.1, 0.6, 1.)
 } 
 
-fn CreateWhiteBackground(var_width: f32, var_height: f32) -> Element {
+fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
+    let size_info = _hooks.use_query(window_logical_size());
+    let x = size_info[0].1.x as f32;
+    let y = size_info[0].1.y as f32;
     Rectangle.el()
-        .with(width(), var_width)
-        .with(height(), var_height)
-        .with(translation(), vec3(0., 0., 0.01))
+        .with(width(), x)
+        .with(height(), y)
         .with(background_color(), vec4(1., 1., 1., 1.))
 }
 
@@ -33,8 +35,8 @@ fn DrawPoint(x: f32, y: f32, depth: f32) -> Element {
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
-        //CreateWhiteBackground(255., 255.),
-        DrawCircle(500., 500., 500.),
+        //CreateWhiteBackground(_hooks),
+        DrawCircle(500., 375., 500.),
     ])
 }
 
