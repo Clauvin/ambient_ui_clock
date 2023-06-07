@@ -19,12 +19,20 @@ fn DrawPoint(x: f32, y: f32, depth: f32) -> Element {
 fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
         CreateWhiteBackground(255., 255.),
+    ])
+}
+
+#[element_component]
+fn AppTwo(_hooks: &mut Hooks) -> Element {
+    Group::el([
         DrawPoint(250., 250., 0.),
     ])
 }
 
+
 #[main]
 pub fn main() {
     App.el().spawn_interactive();
+    AppTwo.el().spawn_interactive();
 }
 
