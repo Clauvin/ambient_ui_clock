@@ -1,9 +1,15 @@
 use ambient_api::prelude::*;
+use std::f32::consts::PI;
+use core::time::Duration;
 
+const clock_ray: f32 = 250.;
 const clock_x_position: f32 = 500.;
 const clock_y_position: f32 = 375.;
-const clock_ray: f32 = 250.;
+const clock_x_center: f32 = clock_x_position - clock_ray;
+const clock_y_center: f32 = clock_y_position - clock_ray;
+
 const hour_ray: f32 = 40.;
+
 
 fn create_clock_border_color() -> Vec4 {
     vec4(0.2, 0.1, 0.6, 1.)
@@ -48,6 +54,30 @@ fn DrawStaticHourHand(x: f32, y: f32) -> Element {
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
+    let size_info = _hooks.use_query(window_logical_size());
+    let (now, set_now) = _hooks.use_state(time());
+    let (hour_x, set_hour_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
+    let (hour_y, set_hour_y) = _hooks.use_state(size_info[0].1.y as f32 / 2. - hour_ray);
+    let (phase, set_phase) = _hooks.use_state(PI/30.);
+
+    _hooks.use_frame(move |world|{
+        let latest = time();
+        if latest - now > Duration::from_secs_f32(1.0) {
+            set_now(latest);
+            set_phase({
+                if phase + PI/30.0 > PI*2.0 {
+                    phase + PI/30.0 - PI*2.0
+                } else {
+                    phase + PI/30.0
+                }
+            });
+            // for some reason, second 45 without 0.1 won't show
+            set_hour_x((clock_x_center + hour_ray*(phase.sin()))+0.1);
+            set_hour_y((clock_y_center - hour_ray*(phase.cos()))+0.1);
+            println!("hour_x: {}, hour_y: {}", hour_x, hour_y);
+        }
+    });
+
     Group::el([
         CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray),
