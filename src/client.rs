@@ -4,7 +4,18 @@ fn CreateWhiteBackground(var_width: f32, var_height: f32) -> Element {
     Rectangle.el()
         .with(width(), var_width)
         .with(height(), var_height)
+        .with(translation(), vec3(0., 0., 0.01))
         .with(background_color(), vec4(1., 1., 1., 1.))
+}
+
+fn DrawCircle(x_position: f32, y_position: f32, ray: f32) -> Element{
+    Rectangle.el()
+        .with(width(), ray/2.)
+        .with(height(), ray/2.)
+        .with(translation(), vec3(x_position-ray/2., y_position-ray/2., 0.01))
+        .with(border_color(), vec4(0.6, 0.2, 0.2, 1.))
+        .with(border_thickness(), 4.)
+        .with(border_radius(), vec4(ray/4.,ray/4.,ray/4.,ray/4.))
 }
 
 fn DrawPoint(x: f32, y: f32, depth: f32) -> Element {
@@ -18,14 +29,8 @@ fn DrawPoint(x: f32, y: f32, depth: f32) -> Element {
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
-        CreateWhiteBackground(255., 255.),
-    ])
-}
-
-#[element_component]
-fn AppTwo(_hooks: &mut Hooks) -> Element {
-    Group::el([
-        DrawPoint(250., 250., 0.),
+        //CreateWhiteBackground(255., 255.),
+        DrawCircle(500., 500., 500.),
     ])
 }
 
@@ -33,6 +38,5 @@ fn AppTwo(_hooks: &mut Hooks) -> Element {
 #[main]
 pub fn main() {
     App.el().spawn_interactive();
-    AppTwo.el().spawn_interactive();
 }
 
