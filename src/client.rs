@@ -1,5 +1,9 @@
 use ambient_api::prelude::*;
 
+fn create_clock_border_color() -> Vec4 {
+    vec4(0.2, 0.1, 0.6, 1.)
+} 
+
 fn CreateWhiteBackground(var_width: f32, var_height: f32) -> Element {
     Rectangle.el()
         .with(width(), var_width)
@@ -13,7 +17,7 @@ fn DrawCircle(x_position: f32, y_position: f32, ray: f32) -> Element{
         .with(width(), ray/2.)
         .with(height(), ray/2.)
         .with(translation(), vec3(x_position-ray/2., y_position-ray/2., 0.01))
-        .with(border_color(), vec4(0.6, 0.2, 0.2, 1.))
+        .with(border_color(), create_clock_border_color())
         .with(border_thickness(), 4.)
         .with(border_radius(), vec4(ray/4.,ray/4.,ray/4.,ray/4.))
 }
