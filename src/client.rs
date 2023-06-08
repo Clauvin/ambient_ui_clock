@@ -62,7 +62,7 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     _hooks.use_frame(move |world|{
         let latest = time();
-        if latest - now > Duration::from_secs_f32(1.0) {
+        if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_now(latest);
             set_phase({
                 if phase + PI/30.0 > PI*2.0 {
