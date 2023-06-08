@@ -5,10 +5,12 @@ use core::time::Duration;
 const clock_ray: f32 = 250.;
 const clock_x_position: f32 = 375.;
 const clock_y_position: f32 = 300.;
-const clock_x_center: f32 = clock_x_position - clock_ray;
-const clock_y_center: f32 = clock_y_position - clock_ray;
+const clock_x_center: f32 = clock_x_position;
+const clock_y_center: f32 = clock_y_position;
 
-const hour_ray: f32 = 40.;
+const hour_ray: f32 = clock_ray/4.;
+const minute_ray: f32 = clock_ray/3.;
+const second_ray: f32 = clock_ray/2.;
 
 
 fn create_clock_border_color() -> Vec4 {
@@ -47,7 +49,7 @@ fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     .with(background_color(), vec4(0.6, 0.2, 0.2, 1.))
 }
 
-fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     DrawHand(from_x, from_y, to_x, to_y)
 }
 
@@ -56,8 +58,8 @@ fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element 
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
     let (now, set_now) = _hooks.use_state(time());
-    let (hour_x, set_hour_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
-    let (hour_y, set_hour_y) = _hooks.use_state(size_info[0].1.y as f32 / 2. - hour_ray);
+    let (second_x, set_second_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
+    let (second_y, set_second_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
     let (phase, set_phase) = _hooks.use_state(PI/30.);
 
     _hooks.use_frame(move |world|{
@@ -72,17 +74,16 @@ fn App(_hooks: &mut Hooks) -> Element {
                 }
             });
             // for some reason, second 45 without 0.1 won't show
-            set_hour_x((clock_x_center + hour_ray*(phase.sin()))+0.1);
-            set_hour_y((clock_y_center - hour_ray*(phase.cos()))+0.1);
-            println!("hour_x: {}, hour_y: {}", hour_x, hour_y);
+            set_second_x((clock_x_center + second_ray*(phase.sin()))+0.1);
+            set_second_y((clock_y_center - second_ray*(phase.cos()))+0.1);
+            println!("hour_x: {}, hour_y: {}", second_x, second_y);
         }
     });
 
     Group::el([
         CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray),
-        DrawStaticHourHand(clock_x_center, clock_y_center, hour_x, hour_y)
-        //DrawStaticHourHand(clock_x_position-clock_ray/2., clock_y_position-clock_ray/2.)
+        DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y)
     ])
 }
 
