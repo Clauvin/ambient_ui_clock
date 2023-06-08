@@ -49,10 +49,17 @@ fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     .with(background_color(), vec4(0.6, 0.2, 0.2, 1.))
 }
 
-fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     DrawHand(from_x, from_y, to_x, to_y)
 }
 
+fn DrawStaticMinuteHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    DrawHand(from_x, from_y, to_x, to_y)
+}
+
+fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    DrawHand(from_x, from_y, to_x, to_y)
+}
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
