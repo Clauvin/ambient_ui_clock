@@ -3,8 +3,8 @@ use std::f32::consts::PI;
 use core::time::Duration;
 
 const clock_ray: f32 = 250.;
-const clock_x_position: f32 = 500.;
-const clock_y_position: f32 = 375.;
+const clock_x_position: f32 = 375.;
+const clock_y_position: f32 = 300.;
 const clock_x_center: f32 = clock_x_position - clock_ray;
 const clock_y_center: f32 = clock_y_position - clock_ray;
 
@@ -31,24 +31,24 @@ fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
 
 fn DrawCircle(x_position: f32, y_position: f32, ray: f32) -> Element{
     Rectangle.el()
-        .with(width(), ray)
-        .with(height(), ray)
+        .with(width(), ray*2.)
+        .with(height(), ray*2.)
         .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
         .with(border_color(), create_clock_border_color())
         .with(border_thickness(), 4.)
-        .with(border_radius(), vec4(ray/2.,ray/2.,ray/2.,ray/2.))
+        .with(border_radius(), vec4(ray,ray,ray,ray))
 }
 
-fn DrawHand(x: f32, y: f32) -> Element {
+fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     Line.el()
-    .with(line_from(), vec3(x, y, 0.0))
-    .with(line_to(), vec3(x, y-hour_ray, 0.0))
+    .with(line_from(), vec3(from_x, from_y, 0.0))
+    .with(line_to(), vec3(to_x, to_y, 0.0))
     .with(line_width(), 4.)
     .with(background_color(), vec4(0.6, 0.2, 0.2, 1.))
 }
 
-fn DrawStaticHourHand(x: f32, y: f32) -> Element {
-    DrawHand(x, y)
+fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    DrawHand(from_x, from_y, to_x, to_y)
 }
 
 
@@ -81,7 +81,9 @@ fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
         CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray),
-        DrawStaticHourHand(clock_x_position-clock_ray/2., clock_y_position-clock_ray/2.)    ])
+        DrawStaticHourHand(clock_x_center, clock_y_center, hour_x, hour_y)
+        //DrawStaticHourHand(clock_x_position-clock_ray/2., clock_y_position-clock_ray/2.)
+    ])
 }
 
 
