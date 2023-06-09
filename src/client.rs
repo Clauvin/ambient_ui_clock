@@ -86,7 +86,7 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     Group::el([
         CreateWhiteBackground(_hooks),
-        DrawCircle(clock_x_position, clock_y_position, clock_ray),
+        DrawCircle(clock_x_position, clock_y_position, clock_ray, clock_border_color),
         DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y)
     ])
 }
