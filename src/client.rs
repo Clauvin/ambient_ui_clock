@@ -31,12 +31,12 @@ fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
         .with(translation(), vec3(0., 0., -1.01))
 }
 
-fn DrawCircle(x_position: f32, y_position: f32, ray: f32) -> Element{
+fn DrawCircle(x_position: f32, y_position: f32, ray: f32, border_color: Vec4) -> Element{
     Rectangle.el()
         .with(width(), ray*2.)
         .with(height(), ray*2.)
         .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
-        .with(border_color(), create_clock_border_color())
+        .with(border_color(), border_color)
         .with(border_thickness(), 4.)
         .with(border_radius(), vec4(ray,ray,ray,ray))
 }
