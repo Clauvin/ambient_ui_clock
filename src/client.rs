@@ -51,39 +51,64 @@ fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Elemen
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
 
-    let (second_now, set_second_now) = _hooks.use_state(time());
+    let (now, set_now) = _hooks.use_state(time());
 
+    let (hour_x, set_hour_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
+    let (hour_y, set_hour_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
     let (minute_x, set_minute_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
     let (minute_y, set_minute_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
     let (second_x, set_second_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
     let (second_y, set_second_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
 
-    let (phase, set_phase) = _hooks.use_state(PI/30.);
+    let (hour_phase, set_hour_phase) = _hooks.use_state(PI/(1800.*24.));
+    let (minute_phase, set_minute_phase) = _hooks.use_state(PI/1800.);
+    let (second_phase, set_second_phase) = _hooks.use_state(PI/30.);
 
     _hooks.use_frame(move |world|{
         let latest = time();
-        if latest - second_now > Duration::from_secs_f32(1.0).as_secs_f32() {
-            set_second_now(latest);
-            set_phase({
-                if phase + PI/30.0 > PI*2.0 {
-                    phase + PI/30.0 - PI*2.0
+        if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
+            set_now(latest);
+            set_hour_phase({
+                if hour_phase + PI/(1800.*24.) > PI*2.0 {
+                    hour_phase + PI/(1800.*24.) - PI*2.0
                 } else {
-                    phase + PI/30.0
+                    hour_phase + PI/(1800.*24.)
+                }
+            });
+            set_minute_phase({
+                if minute_phase + PI/1800.0 > PI*2.0 {
+                    minute_phase + PI/1800.0 - PI*2.0
+                } else {
+                    minute_phase + PI/1800.0
+                }
+            });            
+            set_second_phase({
+                if second_phase + PI/30.0 > PI*2.0 {
+                    second_phase + PI/30.0 - PI*2.0
+                } else {
+                    second_phase + PI/30.0
                 }
             });
 
-            set_minute_x(clock_x_center + minute_ray*(phase.sin()));
-            set_minute_y(clock_y_center - minute_ray*(phase.cos()));
+            // for some reason, second 45 without 0.1 won't show.
+            // Maybe it happens with minute and hour 45 too, so I'm adding the same fix to those as well
+            // That said, I need to check those later, properly
+            set_hour_x(clock_x_center + hour_ray*(hour_phase.sin())+0.1);
+            set_hour_y(clock_y_center - hour_ray*(hour_phase.cos())-0.1);
 
-            set_second_x(clock_x_center + second_ray*(phase.sin()));
-            set_second_y(clock_y_center - second_ray*(phase.cos()));
+            set_minute_x(clock_x_center + minute_ray*(minute_phase.sin())+0.1);
+            set_minute_y(clock_y_center - minute_ray*(minute_phase.cos())-0.1);
+
+            set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
+            set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
         }
     });
 
     Group::el([
         DrawCircle(clock_x_position, clock_y_position, clock_ray, clock_border_color),
+        DrawStaticHourHand(clock_x_center, clock_y_center, hour_x, hour_y),
         DrawStaticMinuteHand(clock_x_center, clock_y_center, minute_x, minute_y),
-        DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y)
+        DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y),
     ])
 }
 
