@@ -65,7 +65,7 @@ fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Elemen
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
 
-    let (now, set_now) = _hooks.use_state(time());
+    let (second_now, set_second_now) = _hooks.use_state(time());
 
     let (minute_x, set_minute_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
     let (minute_y, set_minute_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
@@ -76,8 +76,8 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     _hooks.use_frame(move |world|{
         let latest = time();
-        if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
-            set_now(latest);
+        if latest - second_now > Duration::from_secs_f32(1.0).as_secs_f32() {
+            set_second_now(latest);
             set_phase({
                 if phase + PI/30.0 > PI*2.0 {
                     phase + PI/30.0 - PI*2.0
