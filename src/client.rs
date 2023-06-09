@@ -12,7 +12,7 @@ const hour_ray: f32 = clock_ray/4.;
 const minute_ray: f32 = clock_ray/3.;
 const second_ray: f32 = clock_ray/2.;
 
-const clock_border_color: vec4 = vec4(0.2, 0.1, 0.6, 1.);
+const clock_border_color: Vec4 = vec4(0.2, 0.1, 0.6, 1.);
 
 
 //For some reason, it can't be drawn under the circle? If it is, then
@@ -28,12 +28,12 @@ fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
         .with(translation(), vec3(0., 0., -1.01))
 }
 
-fn DrawCircle(x_position: f32, y_position: f32, ray: f32, border_color: Vec4) -> Element{
+fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
     Rectangle.el()
         .with(width(), ray*2.)
         .with(height(), ray*2.)
         .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
-        .with(border_color(), border_color)
+        .with(border_color(), circle_border_color)
         .with(border_thickness(), 4.)
         .with(border_radius(), vec4(ray,ray,ray,ray))
 }
