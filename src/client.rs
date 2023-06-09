@@ -78,8 +78,8 @@ fn App(_hooks: &mut Hooks) -> Element {
                 }
             });
             // for some reason, second 45 without 0.1 won't show
-            set_second_x((clock_x_center + second_ray*(phase.sin()))+0.1);
-            set_second_y((clock_y_center - second_ray*(phase.cos()))+0.1);
+            set_second_x(clock_x_center + second_ray*(phase.sin()));
+            set_second_y(clock_y_center - second_ray*(phase.cos()));
             println!("hour_x: {}, hour_y: {}", second_x, second_y);
         }
     });
