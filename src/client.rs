@@ -85,13 +85,12 @@ fn App(_hooks: &mut Hooks) -> Element {
                     phase + PI/30.0
                 }
             });
-            
+
             set_minute_x(clock_x_center + minute_ray*(phase.sin()));
             set_minute_y(clock_y_center - minute_ray*(phase.cos()));
 
             set_second_x(clock_x_center + second_ray*(phase.sin()));
             set_second_y(clock_y_center - second_ray*(phase.cos()));
-            println!("hour_x: {}, hour_y: {}", second_x, second_y);
         }
     });
 
