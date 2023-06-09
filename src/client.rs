@@ -64,9 +64,14 @@ fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Elemen
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
+
     let (now, set_now) = _hooks.use_state(time());
+
+    let (minute_x, set_minute_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
+    let (minute_y, set_minute_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
     let (second_x, set_second_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
     let (second_y, set_second_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
+
     let (phase, set_phase) = _hooks.use_state(PI/30.);
 
     _hooks.use_frame(move |world|{
@@ -80,7 +85,10 @@ fn App(_hooks: &mut Hooks) -> Element {
                     phase + PI/30.0
                 }
             });
-            // for some reason, second 45 without 0.1 won't show
+            
+            set_minute_x(clock_x_center + minute_ray*(phase.sin()));
+            set_minute_y(clock_y_center - minute_ray*(phase.cos()));
+
             set_second_x(clock_x_center + second_ray*(phase.sin()));
             set_second_y(clock_y_center - second_ray*(phase.cos()));
             println!("hour_x: {}, hour_y: {}", second_x, second_y);
@@ -90,6 +98,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
         CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray, clock_border_color),
+        DrawStaticMinuteHand(clock_x_center, clock_y_center, minute_x, minute_y),
         DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y)
     ])
 }
