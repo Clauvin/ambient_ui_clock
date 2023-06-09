@@ -41,24 +41,24 @@ fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: V
         .with(border_radius(), vec4(ray,ray,ray,ray))
 }
 
-fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> Element {
     Line.el()
     .with(line_from(), vec3(from_x, from_y, 0.0))
     .with(line_to(), vec3(to_x, to_y, 0.0))
     .with(line_width(), 4.)
-    .with(background_color(), vec4(0.6, 0.2, 0.2, 1.))
+    .with(background_color(), hand_color)
 }
 
 fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y)
+    DrawHand(from_x, from_y, to_x, to_y, hour_color)
 }
 
 fn DrawStaticMinuteHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y)
+    DrawHand(from_x, from_y, to_x, to_y, minute_color)
 }
 
 fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y)
+    DrawHand(from_x, from_y, to_x, to_y, second_color)
 }
 
 #[element_component]
