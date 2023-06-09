@@ -12,10 +12,7 @@ const hour_ray: f32 = clock_ray/4.;
 const minute_ray: f32 = clock_ray/3.;
 const second_ray: f32 = clock_ray/2.;
 
-
-fn create_clock_border_color() -> Vec4 {
-    vec4(0.2, 0.1, 0.6, 1.)
-} 
+const clock_border_color: vec4 = vec4(0.2, 0.1, 0.6, 1.);
 
 
 //For some reason, it can't be drawn under the circle? If it is, then
