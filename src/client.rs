@@ -17,20 +17,6 @@ const hour_color: Vec4 = clock_border_color;
 const minute_color: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
 const second_color: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
 
-
-//For some reason, it can't be drawn under the circle? If it is, then
-//  it does not show up. If it is not, it always stays above the circle.
-fn CreateWhiteBackground(_hooks: &mut Hooks) -> Element {
-    let size_info = _hooks.use_query(window_logical_size());
-    let x = size_info[0].1.x as f32;
-    let y = size_info[0].1.y as f32;
-    Rectangle.el()
-        .with(width(), x)
-        .with(height(), y)
-        .with(background_color(), vec4(1., 1., 1., 1.))
-        .with(translation(), vec3(0., 0., -1.01))
-}
-
 fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
     Rectangle.el()
         .with(width(), ray*2.)
@@ -95,7 +81,6 @@ fn App(_hooks: &mut Hooks) -> Element {
     });
 
     Group::el([
-        CreateWhiteBackground(_hooks),
         DrawCircle(clock_x_position, clock_y_position, clock_ray, clock_border_color),
         DrawStaticMinuteHand(clock_x_center, clock_y_center, minute_x, minute_y),
         DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y)
