@@ -1,17 +1,23 @@
 [package]
 name = "ambient_ui_clock"
-version = "0.1.0"
-edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
+publish = false
+version = "0.0.1"
 
 [dependencies]
-ambient_api = { version = "0.2.1" }
+ambient_api = "0.2.1"
 
 [[bin]]
-name = "ambient_ui_clock_client"
+name = "client_ambient_ui_clock"
 path = "src/client.rs"
 required-features = ["client"]
 
+[[bin]]
+name = "server_ambient_ui_clock"
+path = "src/server.rs"
+required-features = ["server"]
+
 [features]
 client = ["ambient_api/client"]
+server = ["ambient_api/server"]
