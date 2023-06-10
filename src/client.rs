@@ -53,12 +53,12 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (now, set_now) = _hooks.use_state(time());
 
-    let (hour_x, set_hour_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
-    let (hour_y, set_hour_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
-    let (minute_x, set_minute_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
-    let (minute_y, set_minute_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
-    let (second_x, set_second_x) = _hooks.use_state(size_info[0].1.x as f32 / 2.);
-    let (second_y, set_second_y) = _hooks.use_state(size_info[0].1.y as f32 / 2.);
+    let (hour_x, set_hour_x) = _hooks.use_state(clock_x_center);
+    let (hour_y, set_hour_y) = _hooks.use_state(clock_y_center - hour_ray);
+    let (minute_x, set_minute_x) = _hooks.use_state(clock_x_center);
+    let (minute_y, set_minute_y) = _hooks.use_state(clock_y_center - minute_ray);
+    let (second_x, set_second_x) = _hooks.use_state(clock_x_center);
+    let (second_y, set_second_y) = _hooks.use_state(clock_y_center - second_ray);
 
     let (hour_phase, set_hour_phase) = _hooks.use_state(PI/(1800.*24.));
     let (minute_phase, set_minute_phase) = _hooks.use_state(PI/1800.);
