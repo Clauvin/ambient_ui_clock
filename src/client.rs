@@ -117,3 +117,12 @@ fn App(_hooks: &mut Hooks) -> Element {
 pub fn main() {
     App.el().spawn_interactive();
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        let result = 2 + 2;
+        assert_eq!(result, 4);
+    }
+}
