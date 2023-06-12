@@ -12,6 +12,7 @@ ambient_api = "0.2.1"
 name = "client_ambient_ui_clock"
 path = "src/client.rs"
 required-features = ["client"]
+test = true  
 
 [[bin]]
 name = "server_ambient_ui_clock"
