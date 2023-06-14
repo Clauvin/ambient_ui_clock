@@ -136,4 +136,4 @@ fn color_test(color: Vec4) {
 
 /*const hour_color: Vec4 = clock_border_color;
 const minute_color: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
-const second_color: Vec4 = vec4(0.6, 0.1, 0.2, 1.);*/
+const second_color: Vec4 = vec4(0.6, 0.1, 0.2, 1.);*/fn clock_border_color_test(){
