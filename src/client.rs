@@ -115,7 +115,11 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
-    App.el().spawn_interactive();
+    start();
+}
+
+fn start(){
+	App.el().spawn_interactive();
 }
 
 #[test]
