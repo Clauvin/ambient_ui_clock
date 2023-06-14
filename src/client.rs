@@ -115,15 +115,25 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
-    start();
+    color_test(clock_border_color);
 }
 
 fn start(){
 	App.el().spawn_interactive();
 }
 
-#[test]
-fn it_works() {
-    let result = 2 + 2;
-    assert_eq!(result, 5);
+//#[test]
+fn color_test(color: Vec4) {
+	assert_ge!(color.0, 0.);
+	assert_ge!(color.1, 0.);
+	assert_ge!(color.2, 0.);
+	assert_ge!(color.3, 0.);
+    assert_le!(color.0, 1.);
+    assert_le!(color.1, 1.);
+    assert_le!(color.2, 1.);
+    assert_le!(color.3, 1.);
 }
+
+/*const hour_color: Vec4 = clock_border_color;
+const minute_color: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
+const second_color: Vec4 = vec4(0.6, 0.1, 0.2, 1.);*/
