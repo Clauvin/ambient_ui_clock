@@ -17,7 +17,7 @@ const HOUR_COLOR: Vec4 = CLOCK_BORDER_COLOR;
 const MINUTE_COLOR: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
 const SECOND_COLOR: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
 
-fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
+fn draw_circle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
     Rectangle.el()
         .with(width(), ray*2.)
         .with(height(), ray*2.)
@@ -27,7 +27,7 @@ fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: V
         .with(border_radius(), vec4(ray,ray,ray,ray))
 }
 
-fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> Element {
+fn draw_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> Element {
     Line.el()
     .with(line_from(), vec3(from_x, from_y, 0.0))
     .with(line_to(), vec3(to_x, to_y, 0.0))
@@ -35,16 +35,16 @@ fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> 
     .with(background_color(), hand_color)
 }
 
-fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, HOUR_COLOR)
+fn draw_static_hour_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    draw_hand(from_x, from_y, to_x, to_y, HOUR_COLOR)
 }
 
-fn DrawStaticMinuteHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, MINUTE_COLOR)
+fn draw_static_minute_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    draw_hand(from_x, from_y, to_x, to_y, MINUTE_COLOR)
 }
 
-fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, SECOND_COLOR)
+fn draw_static_second_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
+    draw_hand(from_x, from_y, to_x, to_y, SECOND_COLOR)
 }
 
 #[element_component]
@@ -105,10 +105,10 @@ fn App(_hooks: &mut Hooks) -> Element {
     });
 
     Group::el([
-        DrawCircle(CLOCK_X_POSITION, CLOCK_Y_POSITION, CLOCK_RAY, CLOCK_BORDER_COLOR),
-        DrawStaticHourHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, hour_x, hour_y),
-        DrawStaticMinuteHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, minute_x, minute_y),
-        DrawStaticSecondHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, second_x, second_y),
+        draw_circle(CLOCK_X_POSITION, CLOCK_Y_POSITION, CLOCK_RAY, CLOCK_BORDER_COLOR),
+        draw_static_hour_hand(CLOCK_X_CENTER, CLOCK_Y_CENTER, hour_x, hour_y),
+        draw_static_minute_hand(CLOCK_X_CENTER, CLOCK_Y_CENTER, minute_x, minute_y),
+        draw_static_second_hand(CLOCK_X_CENTER, CLOCK_Y_CENTER, second_x, second_y),
     ])
 }
 
