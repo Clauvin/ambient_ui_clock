@@ -62,7 +62,6 @@ fn get_current_time_zone() -> i32{
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
-
     let size_info = _hooks.use_query(window_logical_size());
 
     let (now, set_now) = _hooks.use_state(time());
@@ -85,7 +84,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (clock_x_center, set_clock_x_center) = _hooks.use_state(clock_x_position);
     let (clock_y_center, set_clock_y_center) = _hooks.use_state(clock_y_position);
 
-    let hour_ray: f32 = clock_ray/4.;
+    let hour_ray: f32 = clock_ray/5.;
     let minute_ray: f32 = clock_ray/3.;
     let second_ray: f32 = clock_ray/2.;
 
@@ -175,6 +174,7 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
+    println!("{:?}", get_current_date_and_time());
     color_tests();
 	start();
 }
