@@ -71,6 +71,11 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (now, set_now) = _hooks.use_state(time());
 
+    let initial_date_and_time = get_current_date_and_time();
+    let initial_clock_hour = get_current_hour12(initial_date_and_time) as f32;
+    let initial_clock_minute = get_current_minutes(initial_date_and_time) as f32;
+    let initial_clock_second = get_current_seconds(initial_date_and_time) as f32;
+
     let (hour_x, set_hour_x) = _hooks.use_state(CLOCK_X_CENTER);
     let (hour_y, set_hour_y) = _hooks.use_state(CLOCK_Y_CENTER - HOUR_RAY);
     let (minute_x, set_minute_x) = _hooks.use_state(CLOCK_X_CENTER);
@@ -78,9 +83,9 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (second_x, set_second_x) = _hooks.use_state(CLOCK_X_CENTER);
     let (second_y, set_second_y) = _hooks.use_state(CLOCK_Y_CENTER - SECOND_RAY);
 
-    let (hour_phase, set_hour_phase) = _hooks.use_state(PI/(1800.*24.));
-    let (minute_phase, set_minute_phase) = _hooks.use_state(PI/1800.);
-    let (second_phase, set_second_phase) = _hooks.use_state(PI/30.);
+    let (hour_phase, set_hour_phase) = _hooks.use_state(initial_clock_hour * PI/12.);
+    let (minute_phase, set_minute_phase) = _hooks.use_state(initial_clock_minute * PI/30.);
+    let (second_phase, set_second_phase) = _hooks.use_state(initial_clock_second * PI/30.);
 
     _hooks.use_frame(move |world|{
         let latest = time();
@@ -133,7 +138,6 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
-    println!("{}", get_current_date_and_time());
     color_tests();
 	start();
 }
