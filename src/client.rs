@@ -68,7 +68,14 @@ fn App(_hooks: &mut Hooks) -> Element {
     let initial_clock_minute = get_current_minutes(initial_date_and_time) as f32;
     let initial_clock_second = get_current_seconds(initial_date_and_time) as f32;
 
-    let (clock_ray, set_clock_ray) = _hooks.use_state(300.);
+    let mut initial_ray = 0.;
+    if size_info[0].1.x <= size_info[0].1.y {
+        initial_ray = (size_info[0].1.x/2) as f32;
+    } else {
+        initial_ray = (size_info[0].1.y/2) as f32;
+    }
+
+    let (clock_ray, set_clock_ray) = _hooks.use_state(initial_ray);
     let (clock_x_position, set_clock_x_position) = _hooks.use_state(clock_ray);
     let (clock_y_position, set_clock_y_position) = _hooks.use_state(clock_ray);
     let (clock_x_center, set_clock_x_center) = _hooks.use_state(clock_x_position);
