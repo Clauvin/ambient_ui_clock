@@ -65,6 +65,8 @@ fn get_current_seconds(date_and_time: DateTime<Local>) -> u32 {
     date_and_time.second()
 }
 
+
+
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
@@ -86,6 +88,15 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (hour_phase, set_hour_phase) = _hooks.use_state(initial_clock_hour * PI/12.);
     let (minute_phase, set_minute_phase) = _hooks.use_state(initial_clock_minute * PI/30.);
     let (second_phase, set_second_phase) = _hooks.use_state(initial_clock_second * PI/30.);
+
+    set_hour_x(CLOCK_X_CENTER + HOUR_RAY*(hour_phase.sin())+0.1);
+    set_hour_y(CLOCK_Y_CENTER - HOUR_RAY*(hour_phase.cos())-0.1);
+
+    set_minute_x(CLOCK_X_CENTER + MINUTE_RAY*(minute_phase.sin())+0.1);
+    set_minute_y(CLOCK_Y_CENTER - MINUTE_RAY*(minute_phase.cos())-0.1);
+
+    set_second_x(CLOCK_X_CENTER + SECOND_RAY*(second_phase.sin())+0.1);
+    set_second_y(CLOCK_Y_CENTER - SECOND_RAY*(second_phase.cos())-0.1);
 
     _hooks.use_frame(move |world|{
         let latest = time();
