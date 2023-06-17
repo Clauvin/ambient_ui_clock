@@ -54,6 +54,10 @@ fn get_current_seconds(date_and_time: DateTime<Local>) -> u32 {
     date_and_time.second()
 }
 
+fn get_current_time_zone() -> i32{
+    Local::now().offset().local_minus_utc()
+}
+
 
 
 #[element_component]
