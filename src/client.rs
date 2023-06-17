@@ -49,7 +49,21 @@ fn draw_static_second_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Ele
     draw_hand(from_x, from_y, to_x, to_y, SECOND_COLOR)
 }
 
-fn get_current_hour(){}
+fn get_current_date_and_time() -> DateTime<Local>{
+    Local::now()
+}
+
+fn get_current_hour12(date_and_time: DateTime<Local>) -> u32 {
+    date_and_time.hour12().1
+}
+
+fn get_current_minutes(date_and_time: DateTime<Local>) -> u32 {
+    date_and_time.minute()
+}
+
+fn get_current_seconds(date_and_time: DateTime<Local>) -> u32 {
+    date_and_time.second()
+}
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
@@ -119,6 +133,7 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
+    println!("{}", get_current_date_and_time());
     color_tests();
 	start();
 }
