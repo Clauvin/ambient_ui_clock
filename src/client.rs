@@ -2,20 +2,20 @@ use ambient_api::prelude::*;
 use std::f32::consts::PI;
 use core::time::Duration;
 
-const clock_ray: f32 = 250.;
-const clock_x_position: f32 = 375.;
-const clock_y_position: f32 = 300.;
-const clock_x_center: f32 = clock_x_position;
-const clock_y_center: f32 = clock_y_position;
+const CLOCK_RAY: f32 = 250.;
+const CLOCK_X_POSITION: f32 = 375.;
+const CLOCK_Y_POSITION: f32 = 300.;
+const CLOCK_X_CENTER: f32 = CLOCK_X_POSITION;
+const CLOCK_Y_CENTER: f32 = CLOCK_Y_POSITION;
 
-const hour_ray: f32 = clock_ray/4.;
-const minute_ray: f32 = clock_ray/3.;
-const second_ray: f32 = clock_ray/2.;
+const HOUR_RAY: f32 = CLOCK_RAY/4.;
+const MINUTE_RAY: f32 = CLOCK_RAY/3.;
+const SECOND_RAY: f32 = CLOCK_RAY/2.;
 
-const clock_border_color: Vec4 = vec4(0.2, 0.1, 0.6, 1.);
-const hour_color: Vec4 = clock_border_color;
-const minute_color: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
-const second_color: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
+const CLOCK_BORDER_COLOR: Vec4 = vec4(0.2, 0.1, 0.6, 1.);
+const HOUR_COLOR: Vec4 = CLOCK_BORDER_COLOR;
+const MINUTE_COLOR: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
+const SECOND_COLOR: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
 
 fn DrawCircle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
     Rectangle.el()
@@ -36,15 +36,15 @@ fn DrawHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> 
 }
 
 fn DrawStaticHourHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, hour_color)
+    DrawHand(from_x, from_y, to_x, to_y, HOUR_COLOR)
 }
 
 fn DrawStaticMinuteHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, minute_color)
+    DrawHand(from_x, from_y, to_x, to_y, MINUTE_COLOR)
 }
 
 fn DrawStaticSecondHand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    DrawHand(from_x, from_y, to_x, to_y, second_color)
+    DrawHand(from_x, from_y, to_x, to_y, SECOND_COLOR)
 }
 
 #[element_component]
@@ -53,12 +53,12 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (now, set_now) = _hooks.use_state(time());
 
-    let (hour_x, set_hour_x) = _hooks.use_state(clock_x_center);
-    let (hour_y, set_hour_y) = _hooks.use_state(clock_y_center - hour_ray);
-    let (minute_x, set_minute_x) = _hooks.use_state(clock_x_center);
-    let (minute_y, set_minute_y) = _hooks.use_state(clock_y_center - minute_ray);
-    let (second_x, set_second_x) = _hooks.use_state(clock_x_center);
-    let (second_y, set_second_y) = _hooks.use_state(clock_y_center - second_ray);
+    let (hour_x, set_hour_x) = _hooks.use_state(CLOCK_X_CENTER);
+    let (hour_y, set_hour_y) = _hooks.use_state(CLOCK_Y_CENTER - HOUR_RAY);
+    let (minute_x, set_minute_x) = _hooks.use_state(CLOCK_X_CENTER);
+    let (minute_y, set_minute_y) = _hooks.use_state(CLOCK_Y_CENTER - MINUTE_RAY);
+    let (second_x, set_second_x) = _hooks.use_state(CLOCK_X_CENTER);
+    let (second_y, set_second_y) = _hooks.use_state(CLOCK_Y_CENTER - SECOND_RAY);
 
     let (hour_phase, set_hour_phase) = _hooks.use_state(PI/(1800.*24.));
     let (minute_phase, set_minute_phase) = _hooks.use_state(PI/1800.);
@@ -93,22 +93,22 @@ fn App(_hooks: &mut Hooks) -> Element {
             // for some reason, second 45 without 0.1 won't show.
             // Maybe it happens with minute and hour 45 too, so I'm adding the same fix to those as well
             // That said, I need to check those later, properly
-            set_hour_x(clock_x_center + hour_ray*(hour_phase.sin())+0.1);
-            set_hour_y(clock_y_center - hour_ray*(hour_phase.cos())-0.1);
+            set_hour_x(CLOCK_X_CENTER + HOUR_RAY*(hour_phase.sin())+0.1);
+            set_hour_y(CLOCK_Y_CENTER - HOUR_RAY*(hour_phase.cos())-0.1);
 
-            set_minute_x(clock_x_center + minute_ray*(minute_phase.sin())+0.1);
-            set_minute_y(clock_y_center - minute_ray*(minute_phase.cos())-0.1);
+            set_minute_x(CLOCK_X_CENTER + MINUTE_RAY*(minute_phase.sin())+0.1);
+            set_minute_y(CLOCK_Y_CENTER - MINUTE_RAY*(minute_phase.cos())-0.1);
 
-            set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
-            set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
+            set_second_x(CLOCK_X_CENTER + SECOND_RAY*(second_phase.sin())+0.1);
+            set_second_y(CLOCK_Y_CENTER - SECOND_RAY*(second_phase.cos())-0.1);
         }
     });
 
     Group::el([
-        DrawCircle(clock_x_position, clock_y_position, clock_ray, clock_border_color),
-        DrawStaticHourHand(clock_x_center, clock_y_center, hour_x, hour_y),
-        DrawStaticMinuteHand(clock_x_center, clock_y_center, minute_x, minute_y),
-        DrawStaticSecondHand(clock_x_center, clock_y_center, second_x, second_y),
+        DrawCircle(CLOCK_X_POSITION, CLOCK_Y_POSITION, CLOCK_RAY, CLOCK_BORDER_COLOR),
+        DrawStaticHourHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, hour_x, hour_y),
+        DrawStaticMinuteHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, minute_x, minute_y),
+        DrawStaticSecondHand(CLOCK_X_CENTER, CLOCK_Y_CENTER, second_x, second_y),
     ])
 }
 
@@ -138,19 +138,19 @@ fn color_test(color: Vec4) {
 }
 
 fn clock_border_color_test(){
-	color_test(clock_border_color);
+	color_test(CLOCK_BORDER_COLOR);
 }
 
 fn hour_color_test(){
-	color_test(hour_color);
+	color_test(HOUR_COLOR);
 }
 
 fn minute_color_test(){
-	color_test(minute_color);
+	color_test(MINUTE_COLOR);
 }
 
 fn second_color_test(){
-	color_test(second_color);
+	color_test(SECOND_COLOR);
 }
 
 //the etc_color variables are Vec4 used for the clock colors
