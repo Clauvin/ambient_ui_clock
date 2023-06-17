@@ -1,6 +1,8 @@
 use ambient_api::prelude::*;
 use std::f32::consts::PI;
 use core::time::Duration;
+use chrono::prelude::*;
+
 
 const CLOCK_RAY: f32 = 250.;
 const CLOCK_X_POSITION: f32 = 375.;
@@ -46,6 +48,8 @@ fn draw_static_minute_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Ele
 fn draw_static_second_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     draw_hand(from_x, from_y, to_x, to_y, SECOND_COLOR)
 }
+
+fn get_current_hour(){}
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
