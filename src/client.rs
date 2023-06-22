@@ -14,7 +14,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (now, set_now) = _hooks.use_state(time());
 
     let initial_date_and_time = clock_time::get_current_date_and_time();
-    let initial_clock_hour = clock_time::get_current_hour12(initial_date_and_time) as f32;
+    let initial_clock_hour = 6 as f32; //clock_time::get_current_hour12(initial_date_and_time) as f32;
     let initial_clock_minute = clock_time::get_current_minutes(initial_date_and_time) as f32;
     let initial_clock_second = clock_time::get_current_seconds(initial_date_and_time) as f32;
 
@@ -42,7 +42,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (second_x, set_second_x) = _hooks.use_state(clock_x_center);
     let (second_y, set_second_y) = _hooks.use_state(clock_y_center - second_ray);
 
-    let (hour_phase, set_hour_phase) = _hooks.use_state(initial_clock_hour * PI/12.);
+    let (hour_phase, set_hour_phase) = _hooks.use_state(initial_clock_hour * PI/6.);
     let (minute_phase, set_minute_phase) = _hooks.use_state(initial_clock_minute * PI/30.);
     let (second_phase, set_second_phase) = _hooks.use_state(initial_clock_second * PI/30.);
 
@@ -75,10 +75,10 @@ fn App(_hooks: &mut Hooks) -> Element {
         if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_now(latest);
             set_hour_phase({
-                if hour_phase + PI/(1800.*24.) > PI*2.0 {
-                    hour_phase + PI/(1800.*24.) - PI*2.0
+                if hour_phase + PI/(1800.*12.) > PI*2.0 {
+                    hour_phase + PI/(1800.*12.) - PI*2.0
                 } else {
-                    hour_phase + PI/(1800.*24.)
+                    hour_phase + PI/(1800.*12.)
                 }
             });
             set_minute_phase({
