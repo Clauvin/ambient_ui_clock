@@ -14,7 +14,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (now, set_now) = _hooks.use_state(time());
 
     let initial_date_and_time = clock_time::get_current_date_and_time();
-    let initial_clock_hour = 6 as f32; //clock_time::get_current_hour12(initial_date_and_time) as f32;
+    let initial_clock_hour = clock_time::get_current_hour12(initial_date_and_time) as f32;
     let initial_clock_minute = clock_time::get_current_minutes(initial_date_and_time) as f32;
     let initial_clock_second = clock_time::get_current_seconds(initial_date_and_time) as f32;
 
