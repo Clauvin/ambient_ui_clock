@@ -176,9 +176,6 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
-    //println!("{:?}", Local::now().timezone().offset_from_local_date(&Local::now().date_naive()));
-    //println!("{:?}", Local.timestamp(0, 0).offset().fix().local_minus_utc());
-    println!("{:?}", Local::now());
     color_tests();
 	start();
 }
