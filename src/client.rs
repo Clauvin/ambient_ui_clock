@@ -3,64 +3,8 @@ use std::f32::consts::PI;
 use core::time::Duration;
 use chrono::prelude::*;
 
-const CLOCK_BORDER_COLOR: Vec4 = vec4(0.2, 0.1, 0.6, 1.);
-const HOUR_COLOR: Vec4 = CLOCK_BORDER_COLOR;
-const MINUTE_COLOR: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
-const SECOND_COLOR: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
-
-fn draw_circle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
-    Rectangle.el()
-        .with(width(), ray*2.)
-        .with(height(), ray*2.)
-        .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
-        .with(border_color(), circle_border_color)
-        .with(border_thickness(), 4.)
-        .with(border_radius(), vec4(ray,ray,ray,ray))
-}
-
-fn draw_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4) -> Element {
-    Line.el()
-    .with(line_from(), vec3(from_x, from_y, 0.0))
-    .with(line_to(), vec3(to_x, to_y, 0.0))
-    .with(line_width(), 4.)
-    .with(background_color(), hand_color)
-}
-
-fn draw_static_hour_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    draw_hand(from_x, from_y, to_x, to_y, HOUR_COLOR)
-}
-
-fn draw_static_minute_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    draw_hand(from_x, from_y, to_x, to_y, MINUTE_COLOR)
-}
-
-fn draw_static_second_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    draw_hand(from_x, from_y, to_x, to_y, SECOND_COLOR)
-}
-
-fn get_current_date_and_time() -> DateTime<Local>{
-    Local::now()
-}
-
-fn get_current_hour12(date_and_time: DateTime<Local>) -> u32 {
-    date_and_time.hour12().1
-}
-
-fn get_current_minutes(date_and_time: DateTime<Local>) -> u32 {
-    date_and_time.minute()
-}
-
-fn get_current_seconds(date_and_time: DateTime<Local>) -> u32 {
-    date_and_time.second()
-}
-
-//This code should work, once the ambient bug of Local::now is properly fixed.
-//Once it is, I will update the code to properly consider GMT.
-fn get_current_time_zone() -> i32{
-    Local::now().offset().local_minus_utc()
-}
-
-
+mod drawing;
+mod clock_time;
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
@@ -68,10 +12,10 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (now, set_now) = _hooks.use_state(time());
 
-    let initial_date_and_time = get_current_date_and_time();
-    let initial_clock_hour = get_current_hour12(initial_date_and_time) as f32;
-    let initial_clock_minute = get_current_minutes(initial_date_and_time) as f32;
-    let initial_clock_second = get_current_seconds(initial_date_and_time) as f32;
+    let initial_date_and_time = clock_time::get_current_date_and_time();
+    let initial_clock_hour = clock_time::get_current_hour12(initial_date_and_time) as f32;
+    let initial_clock_minute = clock_time::get_current_minutes(initial_date_and_time) as f32;
+    let initial_clock_second = clock_time::get_current_seconds(initial_date_and_time) as f32;
 
     let mut initial_ray = 0.;
     if size_info[0].1.x <= size_info[0].1.y {
@@ -166,16 +110,17 @@ fn App(_hooks: &mut Hooks) -> Element {
     });
 
     Group::el([
-        draw_circle(clock_x_position, clock_y_position, clock_ray, CLOCK_BORDER_COLOR),
-        draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y),
-        draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y),
-        draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y),
+        drawing::draw_circle(clock_x_position, clock_y_position, clock_ray, drawing::CLOCK_BORDER_COLOR),
+        drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y),
+        drawing::draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y),
+        drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y),
     ])
 }
 
 
 #[main]
 pub fn main() {
+    println!("{:?}", Local::now());
     color_tests();
 	start();
 }
@@ -199,19 +144,19 @@ fn color_test(color: Vec4) {
 }
 
 fn clock_border_color_test(){
-	color_test(CLOCK_BORDER_COLOR);
+	color_test(drawing::CLOCK_BORDER_COLOR);
 }
 
 fn hour_color_test(){
-	color_test(HOUR_COLOR);
+	color_test(drawing::HOUR_COLOR);
 }
 
 fn minute_color_test(){
-	color_test(MINUTE_COLOR);
+	color_test(drawing::MINUTE_COLOR);
 }
 
 fn second_color_test(){
-	color_test(SECOND_COLOR);
+	color_test(drawing::SECOND_COLOR);
 }
 
 //the etc_color variables are Vec4 used for the clock colors
