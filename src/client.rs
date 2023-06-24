@@ -81,25 +81,13 @@ fn App(_hooks: &mut Hooks) -> Element {
         if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_now(latest);
             set_hour_phase({
-                if hour_phase + PI/(1800.*12.) > PI*2.0 {
-                    hour_phase + PI/(1800.*12.) - PI*2.0
-                } else {
-                    hour_phase + PI/(1800.*12.)
-                }
+                clock_time::hour_hand_update(hour_phase)
             });
             set_minute_phase({
-                if minute_phase + PI/1800.0 > PI*2.0 {
-                    minute_phase + PI/1800.0 - PI*2.0
-                } else {
-                    minute_phase + PI/1800.0
-                }
+                clock_time::minute_hand_update(minute_phase)
             });            
             set_second_phase({
-                if second_phase + PI/30.0 > PI*2.0 {
-                    second_phase + PI/30.0 - PI*2.0
-                } else {
-                    second_phase + PI/30.0
-                }
+                clock_time::second_hand_update(second_phase)
             });
 
             // for some reason, second 45 without 0.1 won't show.
