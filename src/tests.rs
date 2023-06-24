@@ -57,8 +57,8 @@ pub fn hand_position_test(hour: f32, minute: f32, second: f32){
 		first_initial_clock_second);
 
 	first_hour_phase = clock_time::hour_hand_update(first_hour_phase);
-	first_minute_phase = clock_time::hour_hand_update(first_minute_phase);
-	first_second_phase = clock_time::hour_hand_update(first_second_phase);
+	first_minute_phase = clock_time::minute_hand_update(first_minute_phase);
+	first_second_phase = clock_time::second_hand_update(first_second_phase);
 
 	let second_hour_phase = clock_time::get_initial_hour_phase(
 		second_initial_clock_hour, second_initial_clock_minute, second_initial_clock_second);
