@@ -1,5 +1,6 @@
 use ambient_api::prelude::*;
 use crate::drawing;
+use crate::clock_time;
 
 //#[test]
 fn color_test(color: Vec4) {
@@ -37,4 +38,36 @@ pub fn color_tests(){
 	hour_color_test();
 	minute_color_test();
 	second_color_test();
+}
+
+pub fn hand_position_test(hour: f32, minute: f32, second: f32){
+	let first_initial_clock_hour = hour;
+    let first_initial_clock_minute = minute;
+    let first_initial_clock_second = second;
+
+	let second_initial_clock_hour = hour;
+	let second_initial_clock_minute = minute;
+	let second_initial_clock_second = second + 1.;
+
+	let mut first_hour_phase = clock_time::get_initial_hour_phase(
+		first_initial_clock_hour, first_initial_clock_minute, first_initial_clock_second);
+	let mut first_minute_phase = clock_time::get_initial_minute_phase(
+		first_initial_clock_minute, first_initial_clock_second);
+	let mut first_second_phase = clock_time::get_initial_second_phase(
+		first_initial_clock_second);
+
+	first_hour_phase = clock_time::hour_hand_update(first_hour_phase);
+	first_minute_phase = clock_time::hour_hand_update(first_minute_phase);
+	first_second_phase = clock_time::hour_hand_update(first_second_phase);
+
+	let second_hour_phase = clock_time::get_initial_hour_phase(
+		second_initial_clock_hour, second_initial_clock_minute, second_initial_clock_second);
+	let second_minute_phase = clock_time::get_initial_minute_phase(
+		second_initial_clock_minute, second_initial_clock_second);
+	let second_second_phase = clock_time::get_initial_second_phase(
+		second_initial_clock_second);
+
+	assert!(first_hour_phase == second_hour_phase, "first_hour_phase = {},  second_hour_phase = {}", first_hour_phase, second_hour_phase);
+	assert!(first_minute_phase == second_minute_phase, "first_minute_phase = {},  second_minute_phase = {}", first_minute_phase, second_minute_phase);
+	assert!(first_second_phase == second_second_phase, "first_second_phase = {},  second_second_phase = {}", first_second_phase, second_second_phase);
 }
