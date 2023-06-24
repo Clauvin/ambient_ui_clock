@@ -111,6 +111,7 @@ fn App(_hooks: &mut Hooks) -> Element {
 pub fn main() {
     println!("{:?}", Local::now());
     tests::color_tests();
+    tests::hand_position_test(3.,4.,5.);
 	start();
 }
 
