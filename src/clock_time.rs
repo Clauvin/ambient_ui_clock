@@ -34,3 +34,27 @@ pub fn get_initial_minute_phase(initial_clock_minute: f32, initial_clock_second:
 pub fn get_initial_second_phase(initial_clock_second: f32) -> f32 {
     initial_clock_second * PI/30.
 }
+
+pub fn hour_hand_update(hour_phase: f32) -> f32 {
+    if hour_phase + PI/(1800.*12.) > PI*2.0 {
+        hour_phase + PI/(1800.*12.) - PI*2.0
+    } else {
+        hour_phase + PI/(1800.*12.)
+    }
+}
+
+pub fn minute_hand_update(minute_phase: f32) -> f32 {
+    if minute_phase + PI/1800.0 > PI*2.0 {
+        minute_phase + PI/1800.0 - PI*2.0
+    } else {
+        minute_phase + PI/1800.0
+    }
+}
+
+pub fn second_hand_update(second_phase: f32) -> f32 {
+    if second_phase + PI/30.0 > PI*2.0 {
+        second_phase + PI/30.0 - PI*2.0
+    } else {
+        second_phase + PI/30.0
+    }
+}
