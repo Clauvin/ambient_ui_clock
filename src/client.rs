@@ -45,15 +45,12 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (second_x, set_second_x) = _hooks.use_state(clock_x_center);
     let (second_y, set_second_y) = _hooks.use_state(clock_y_center - second_ray);
 
-    let (hour_phase, set_hour_phase) = _hooks.use_state(initial_clock_hour * PI/6.);
-    let (minute_phase, set_minute_phase) = _hooks.use_state(initial_clock_minute * PI/30.);
-    let (second_phase, set_second_phase) = _hooks.use_state(initial_clock_second * PI/30.);
-
-    println!("aa");
-    //set_hour_phase(hour_phase + initial_clock_minute * PI/6. * 1./60.);
-    //set_hour_phase(hour_phase + initial_clock_second * PI/6. * 1./60. * 1./60.);
-    //set_minute_phase(minute_phase + initial_clock_second * PI/30. * 1./60.);
-    
+    let (hour_phase, set_hour_phase) = _hooks.use_state(
+        clock_time::get_initial_hour_phase(initial_clock_hour, initial_clock_minute, initial_clock_second));
+    let (minute_phase, set_minute_phase) = _hooks.use_state(
+        clock_time::get_initial_minute_phase(initial_clock_minute, initial_clock_second));
+    let (second_phase, set_second_phase) = _hooks.use_state(
+        clock_time::get_initial_second_phase(initial_clock_second));
 
     set_hour_x(clock_x_center + hour_ray*(hour_phase.sin())+0.1);
     set_hour_y(clock_y_center - hour_ray*(hour_phase.cos())-0.1);
