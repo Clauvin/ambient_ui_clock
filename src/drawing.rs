@@ -34,3 +34,11 @@ pub fn draw_static_minute_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) ->
 pub fn draw_static_second_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
     draw_hand(from_x, from_y, to_x, to_y, SECOND_COLOR)
 }
+
+pub fn define_clock_center(window_width: u32, window_height: u32) -> f32{
+    if window_width <= window_height{
+        (window_width/2) as f32
+    } else {
+        (window_height/2) as f32
+    }
+}
