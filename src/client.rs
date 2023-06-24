@@ -65,13 +65,7 @@ fn App(_hooks: &mut Hooks) -> Element {
         let window_width = size_info[0].1.x;
         let window_height = size_info[0].1.y;
 
-        let mut center = 0.;
-
-        if window_width <= window_height{
-            center = (window_width/2) as f32;
-        } else {
-            center = (window_height/2) as f32;
-        }
+        let center = drawing::define_clock_center(window_width, window_height);
 
         set_clock_ray(center);
         set_clock_x_center(center); set_clock_y_center(center);
