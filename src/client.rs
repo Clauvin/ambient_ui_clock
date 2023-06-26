@@ -15,10 +15,10 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 
     //Have to make set code for this so it won't repeat itself.
-    let initial_date_and_time = clock_time::get_current_date_and_time();
-    let initial_clock_hour = clock_time::get_current_hour12(initial_date_and_time) as f32;
-    let initial_clock_minute = clock_time::get_current_minutes(initial_date_and_time) as f32;
-    let initial_clock_second = clock_time::get_current_seconds(initial_date_and_time) as f32;
+    let mut date_and_time = clock_time::get_current_date_and_time();
+    let mut clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
+    let mut clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
+    let mut clock_second = clock_time::get_current_seconds(date_and_time) as f32;
 
     let mut initial_ray = 0.;
     if size_info[0].1.x <= size_info[0].1.y {
@@ -46,11 +46,11 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (second_y, set_second_y) = _hooks.use_state(clock_y_center - second_ray);
 
     let (hour_phase, set_hour_phase) = _hooks.use_state(
-        clock_time::get_initial_hour_phase(initial_clock_hour, initial_clock_minute, initial_clock_second));
+        clock_time::get_hour_phase(clock_hour, clock_minute, clock_second));
     let (minute_phase, set_minute_phase) = _hooks.use_state(
-        clock_time::get_initial_minute_phase(initial_clock_minute, initial_clock_second));
+        clock_time::get_minute_phase(clock_minute, clock_second));
     let (second_phase, set_second_phase) = _hooks.use_state(
-        clock_time::get_initial_second_phase(initial_clock_second));
+        clock_time::get_second_phase(clock_second));
 
     set_hour_x(clock_x_center + hour_ray*(hour_phase.sin())+0.1);
     set_hour_y(clock_y_center - hour_ray*(hour_phase.cos())-0.1);
@@ -74,14 +74,24 @@ fn App(_hooks: &mut Hooks) -> Element {
         let latest = time();
         if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_now(latest);
+            let date_and_time = clock_time::get_current_date_and_time();
+            let clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
+            let clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
+            let clock_second = clock_time::get_current_seconds(date_and_time) as f32;
+
+            //Originally, the code here would change the time based on the fact that one second had passed, 
+            //  adding that one second to the movement of the hands.
+            //  The problem is that there isn't enough precision on f32 to do that without adding gradual
+            //  imprecisions to the clock.
+            //  The current method is less imprecise and it does not leads to cumulative imprecision.
             set_hour_phase({
-                clock_time::hour_hand_update(hour_phase)
+                clock_time::get_hour_phase(clock_hour, clock_minute, clock_second)
             });
             set_minute_phase({
-                clock_time::minute_hand_update(minute_phase)
+                clock_time::get_minute_phase(clock_minute, clock_second)
             });            
             set_second_phase({
-                clock_time::second_hand_update(second_phase)
+                clock_time::get_second_phase(clock_second)
             });
 
             // for some reason, second 45 without 0.1 won't show.
@@ -111,7 +121,6 @@ fn App(_hooks: &mut Hooks) -> Element {
 pub fn main() {
     println!("{:?}", Local::now());
     tests::color_tests();
-    tests::hand_position_test(3.,4.,5.);
 	start();
 }
 
