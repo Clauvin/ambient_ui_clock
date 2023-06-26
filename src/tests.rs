@@ -39,3 +39,9 @@ pub fn color_tests(){
 	minute_color_test();
 	second_color_test();
 }
+
+pub fn time_zone_test(current_time_zone_in_hours: i32){
+	let expected_time_zone_in_seconds = current_time_zone_in_hours * 60 * 60;
+	let time_zone = clock_time::get_current_time_zone();
+	assert!(expected_time_zone_in_seconds == time_zone, "Time zone expected is different of the one through the program.");
+}
