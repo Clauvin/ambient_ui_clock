@@ -13,12 +13,10 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (now, set_now) = _hooks.use_state(time());
 
-
-    //Have to make set code for this so it won't repeat itself.
-    let mut date_and_time = clock_time::get_current_date_and_time();
-    let mut clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
-    let mut clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
-    let mut clock_second = clock_time::get_current_seconds(date_and_time) as f32;
+    let date_and_time = clock_time::get_current_date_and_time();
+    let clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
+    let clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
+    let clock_second = clock_time::get_current_seconds(date_and_time) as f32;
 
     let mut initial_ray = 0.;
     if size_info[0].1.x <= size_info[0].1.y {
