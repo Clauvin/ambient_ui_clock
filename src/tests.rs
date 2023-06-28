@@ -45,3 +45,8 @@ pub fn time_zone_test(current_time_zone_in_hours: i32){
 	let time_zone = clock_time::get_current_time_zone();
 	assert!(expected_time_zone_in_seconds == time_zone, "Time zone expected is different of the one through the program.");
 }
+
+pub fn clock_size_test(window_width: u32, window_height: u32){
+	let center = drawing::define_clock_center(window_width, window_height);
+	assert!(center == (window_height as f32/2.), "Wrong size of clock.");
+}
