@@ -14,7 +14,7 @@ static mut do_clock_size_test: bool = false;
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
 
-    let (now, set_now) = _hooks.use_state(time());
+    let (its_now, set_its_now) = _hooks.use_state(time());
 
     let date_and_time = clock_time::get_current_date_and_time();
     let clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
@@ -86,8 +86,8 @@ fn App(_hooks: &mut Hooks) -> Element {
         set_clock_x_position(center); set_clock_y_position(center);
 
         let latest = time();
-        if latest - now > Duration::from_secs_f32(1.0).as_secs_f32() {
-            set_now(latest);
+        if latest - its_now > Duration::from_secs_f32(1.0).as_secs_f32() {
+            set_its_now(latest);
             let date_and_time = clock_time::get_current_date_and_time();
             let clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
             let clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
