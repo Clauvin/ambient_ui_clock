@@ -117,13 +117,13 @@ fn App(_hooks: &mut Hooks) -> Element {
 
 #[main]
 pub fn main() {
-    println!("{:?}", Local::now());
     tests::color_tests();
 
     //With ambient-0.2.1, this test will fail is the parameter of it is different than zero.
     //Once the timezone bug of ambient is fixed, it should work if the tester inputs the correct timezone of its PC.
     tests::time_zone_test(0);
 	start();
+    
 }
 
 fn start(){
