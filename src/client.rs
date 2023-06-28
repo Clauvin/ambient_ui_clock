@@ -8,7 +8,7 @@ mod drawing;
 mod clock_time;
 mod tests;
 
-static mut do_clock_size_test: bool = true;
+static mut do_clock_size_test: bool = false;
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
