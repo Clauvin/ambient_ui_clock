@@ -132,6 +132,15 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (border_color_alpha, set_border_color_alpha) =
      _hooks.use_state(drawing::CLOCK_BORDER_COLOR.w);
 
+     let (hour_hand_color_red, set_hour_hand_color_red) =
+     _hooks.use_state(drawing::HOUR_COLOR.x);
+    let (hour_hand_color_green, set_hour_hand_color_green) =
+     _hooks.use_state(drawing::HOUR_COLOR.y);
+    let (hour_hand_color_blue, set_hour_hand_color_blue) =
+     _hooks.use_state(drawing::HOUR_COLOR.z);
+    let (hour_hand_color_alpha, set_hour_hand_color_alpha) =
+     _hooks.use_state(drawing::HOUR_COLOR.w);
+
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
         FocusRoot::el([FlowColumn::el([
@@ -167,15 +176,49 @@ fn App(_hooks: &mut Hooks) -> Element {
                 }
                 .el(),
             ),
+            row(
+                "Hour Red Value",
+                F32Input {
+                    value: hour_hand_color_red,
+                    on_change: set_hour_hand_color_red,
+                }
+                .el(),
+            ),
+            row(
+                "Hour Green Value",
+                F32Input {
+                    value: hour_hand_color_green, 
+                    on_change: set_hour_hand_color_green,
+                }
+                .el(),
+            ),
+            row(
+                "Hour Blue Value",
+                F32Input {
+                    value: hour_hand_color_blue, 
+                    on_change: set_hour_hand_color_blue,
+                }
+                .el(),
+            ),
+            row(
+                "Hour Alpha Value",
+                F32Input {
+                    value: hour_hand_color_alpha,
+                    on_change: set_hour_hand_color_alpha,
+                }
+                .el(),
+            ),
+            
             ])
             .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
             .with(width(), 200.)
             .with(space_between_items(), STREET)
-            .with_padding_even(STREET)
+            .with_padding_even(STREET),
         ]),
         drawing::draw_circle(clock_x_position, clock_y_position, clock_ray,
-             Vec4{x:border_color_red, y:border_color_green, z:border_color_blue, w:border_color_alpha}),
-        drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y),
+            Vec4{x:border_color_red, y:border_color_green, z:border_color_blue, w:border_color_alpha}),
+        drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y,
+            Vec4{x:hour_hand_color_red, y:hour_hand_color_green, z:hour_hand_color_blue, w:hour_hand_color_alpha}),
         drawing::draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y),
         drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y),
     ])
