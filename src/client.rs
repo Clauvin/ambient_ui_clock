@@ -122,10 +122,14 @@ fn App(_hooks: &mut Hooks) -> Element {
         }
     });
 
-    let (border_color_red, set_border_color_red) = _hooks.use_state(0.0);
-    let (border_color_green, set_border_color_green) = _hooks.use_state(0.0);
-    let (border_color_blue, set_border_color_blue) = _hooks.use_state(0.0);
-    let (border_color_alpha, set_border_color_alpha) = _hooks.use_state(0.0);
+    let (border_color_red, set_border_color_red) =
+     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.w);
+    let (border_color_green, set_border_color_green) =
+     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
+    let (border_color_blue, set_border_color_blue) =
+     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.y);
+    let (border_color_alpha, set_border_color_alpha) =
+     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.z);
 
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
