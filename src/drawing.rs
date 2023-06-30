@@ -23,8 +23,8 @@ pub fn draw_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, hand_color: Vec4
     .with(background_color(), hand_color)
 }
 
-pub fn draw_static_hour_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
-    draw_hand(from_x, from_y, to_x, to_y, HOUR_COLOR)
+pub fn draw_static_hour_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32, color: Vec4) -> Element {
+    draw_hand(from_x, from_y, to_x, to_y, color)
 }
 
 pub fn draw_static_minute_hand(from_x: f32, from_y:f32, to_x: f32, to_y: f32) -> Element {
