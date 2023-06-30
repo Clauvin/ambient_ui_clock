@@ -13,6 +13,7 @@ static mut do_clock_size_test: bool = false;
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
+    let window_width_for_ui = size_info[0].1.x as f32;
 
     let (its_now, set_its_now) = _hooks.use_state(time());
 
@@ -167,6 +168,7 @@ fn App(_hooks: &mut Hooks) -> Element {
                 .el(),
             ),
             ])
+            .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
             .with(width(), 200.)
             .with(space_between_items(), STREET)
             .with_padding_even(STREET)
