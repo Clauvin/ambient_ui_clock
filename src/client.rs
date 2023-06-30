@@ -173,7 +173,8 @@ fn App(_hooks: &mut Hooks) -> Element {
             .with(space_between_items(), STREET)
             .with_padding_even(STREET)
         ]),
-        drawing::draw_circle(clock_x_position, clock_y_position, clock_ray, drawing::CLOCK_BORDER_COLOR),
+        drawing::draw_circle(clock_x_position, clock_y_position, clock_ray,
+             Vec4{x:border_color_red, y:border_color_green, z:border_color_blue, w:border_color_alpha}),
         drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y),
         drawing::draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y),
         drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y),
