@@ -63,7 +63,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
 
     //Yeah, for sure there's a much better way to do this. I'm going to work on it once ambient gets a good test system
-    //Also, why this test beaks the drawing of UI?
+    //Also, why this test breaks the drawing of UI?
     unsafe {
         if do_clock_size_test {
             clock_size_test(size_info[0].1.x, size_info[0].1.y);
