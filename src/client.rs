@@ -328,9 +328,9 @@ fn App(_hooks: &mut Hooks) -> Element {
                     .el(),
                 )])
                 .with(space_between_items(), STREET)
-        } else {Element::new()},
+            } else {Element::new()},
             ])
-            .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
+            .with(translation(), vec3(window_width_for_ui - 200., 0., 0.))
             .with(width(), 400.)
             .with(space_between_items(), STREET)
             .with_padding_even(STREET),
