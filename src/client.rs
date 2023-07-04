@@ -10,6 +10,11 @@ mod tests;
 
 static mut do_clock_size_test: bool = false;
 
+const border_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Q;
+const hour_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::W;
+const minute_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::E;
+const second_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::R;
+
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
     let size_info = _hooks.use_query(window_logical_size());
@@ -171,7 +176,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     Group::el([
         FocusRoot::el([FlowColumn::el([
             Button::new("Border color config", move |_| {set_border_color_toggle(!border_color_toggle)})
-                .hotkey(VirtualKeyCode::Q)
+                .hotkey(border_color_virtual_key_code)
                 .el(),
             if border_color_toggle {
                 FlowColumn::el([
@@ -211,7 +216,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Hour hand color config", move |_| {set_hour_hand_color_toggle(!hour_hand_color_toggle)})
-                .hotkey(VirtualKeyCode::W)
+                .hotkey(hour_color_virtual_key_code)
                 .el(),
                 if hour_hand_color_toggle {
                     FlowColumn::el([
@@ -251,7 +256,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Minute hand color config", move |_| {set_minute_hand_color_toggle(!minute_hand_color_toggle)})
-                .hotkey(VirtualKeyCode::E)
+                .hotkey(minute_color_virtual_key_code)
                 .el(),
                 if minute_hand_color_toggle {
                     FlowColumn::el([
@@ -291,7 +296,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Second hand color config", move |_| {set_second_hand_color_toggle(!second_hand_color_toggle)})
-                .hotkey(VirtualKeyCode::R)
+                .hotkey(second_color_virtual_key_code)
                 .el(),
                 if second_hand_color_toggle {
                     FlowColumn::el([
