@@ -291,42 +291,42 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Second hand color config", move |_| {set_second_hand_color_toggle(!second_hand_color_toggle)})
-            .hotkey(VirtualKeyCode::R)
-            .el(),
-            if second_hand_color_toggle {
-                FlowColumn::el([
-                row(
-                    "Second Red Value",
-                    F32Input {
-                        value: second_hand_color_red,
-                        on_change: set_second_hand_color_red,
-                    }
-                    .el(),
-                ),
-                row(
-                    "Second Green Value",
-                    F32Input {
-                        value: minute_hand_color_green, 
-                        on_change: set_second_hand_color_green,
-                    }
-                    .el(),
-                ),
-                row(
-                    "Second Blue Value",
-                    F32Input {
-                        value: second_hand_color_blue, 
-                        on_change: set_second_hand_color_blue,
-                    }
-                    .el(),
-                ),
-                row(
-                    "Second Alpha Value",
-                    F32Input {
-                        value: second_hand_color_alpha,
-                        on_change: set_second_hand_color_alpha,
-                    }
-                    .el(),
-                )])
+                .hotkey(VirtualKeyCode::R)
+                .el(),
+                if second_hand_color_toggle {
+                    FlowColumn::el([
+                    row(
+                        "Second Red Value",
+                        F32Input {
+                            value: second_hand_color_red,
+                            on_change: set_second_hand_color_red,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Second Green Value",
+                        F32Input {
+                            value: minute_hand_color_green, 
+                            on_change: set_second_hand_color_green,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Second Blue Value",
+                        F32Input {
+                            value: second_hand_color_blue, 
+                            on_change: set_second_hand_color_blue,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Second Alpha Value",
+                        F32Input {
+                            value: second_hand_color_alpha,
+                            on_change: set_second_hand_color_alpha,
+                        }
+                        .el(),
+                    )])
                 .with(space_between_items(), STREET)
             } else {Element::new()},
             ])
