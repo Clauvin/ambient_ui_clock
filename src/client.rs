@@ -145,6 +145,17 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (hour_hand_color_alpha, set_hour_hand_color_alpha) =
      _hooks.use_state(drawing::HOUR_COLOR.w);
 
+    let (minute_hand_color_toggle, set_minute_hand_color_toggle) = _hooks.use_state(false);
+
+    let (minute_hand_color_red, set_minute_hand_color_red) =
+     _hooks.use_state(drawing::MINUTE_COLOR.x);
+    let (minute_hand_color_green, set_minute_hand_color_green) =
+     _hooks.use_state(drawing::MINUTE_COLOR.y);
+    let (minute_hand_color_blue, set_minute_hand_color_blue) =
+     _hooks.use_state(drawing::MINUTE_COLOR.z);
+    let (minute_hand_color_alpha, set_minute_hand_color_alpha) =
+     _hooks.use_state(drawing::MINUTE_COLOR.w);
+
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
         FocusRoot::el([FlowColumn::el([
