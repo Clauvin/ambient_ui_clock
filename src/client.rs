@@ -124,6 +124,7 @@ fn App(_hooks: &mut Hooks) -> Element {
     });
 
     let (border_color_toggle, set_border_color_toggle) = _hooks.use_state(false);
+    let (hour_hand_color_toggle, set_hour_hand_color_toggle) = _hooks.use_state(false);
 
     let (border_color_red, set_border_color_red) =
      _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
@@ -184,39 +185,47 @@ fn App(_hooks: &mut Hooks) -> Element {
                     .el(),
                 )])
             } else {Element::new()},
+
+            Button::new("Hour hand color config", move |_| {set_hour_hand_color_toggle(!hour_hand_color_toggle)})
+                .hotkey(VirtualKeyCode::W)
+                .el(),
+                if hour_hand_color_toggle {
+                    FlowColumn::el([
+                    row(
+                        "Hour Red Value",
+                        F32Input {
+                            value: hour_hand_color_red,
+                            on_change: set_hour_hand_color_red,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Hour Green Value",
+                        F32Input {
+                            value: hour_hand_color_green, 
+                            on_change: set_hour_hand_color_green,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Hour Blue Value",
+                        F32Input {
+                            value: hour_hand_color_blue, 
+                            on_change: set_hour_hand_color_blue,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Hour Alpha Value",
+                        F32Input {
+                            value: hour_hand_color_alpha,
+                            on_change: set_hour_hand_color_alpha,
+                        }
+                        .el(),
+                    )])
+            } else {Element::new()},
             
-            row(
-                "Hour Red Value",
-                F32Input {
-                    value: hour_hand_color_red,
-                    on_change: set_hour_hand_color_red,
-                }
-                .el(),
-            ),
-            row(
-                "Hour Green Value",
-                F32Input {
-                    value: hour_hand_color_green, 
-                    on_change: set_hour_hand_color_green,
-                }
-                .el(),
-            ),
-            row(
-                "Hour Blue Value",
-                F32Input {
-                    value: hour_hand_color_blue, 
-                    on_change: set_hour_hand_color_blue,
-                }
-                .el(),
-            ),
-            row(
-                "Hour Alpha Value",
-                F32Input {
-                    value: hour_hand_color_alpha,
-                    on_change: set_hour_hand_color_alpha,
-                }
-                .el(),
-            ),
+            
             
             ])
             .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
