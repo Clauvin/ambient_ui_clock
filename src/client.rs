@@ -196,6 +196,7 @@ fn App(_hooks: &mut Hooks) -> Element {
                     }
                     .el(),
                 )])
+                .with(space_between_items(), STREET)
             } else {Element::new()},
 
             Button::new("Hour hand color config", move |_| {set_hour_hand_color_toggle(!hour_hand_color_toggle)})
@@ -235,6 +236,7 @@ fn App(_hooks: &mut Hooks) -> Element {
                         }
                         .el(),
                     )])
+                    .with(space_between_items(), STREET)
             } else {Element::new()},
             
             
