@@ -123,6 +123,8 @@ fn App(_hooks: &mut Hooks) -> Element {
         }
     });
 
+    let (border_color_toggle, set_border_color_toggle) = _hooks.use_state(false);
+
     let (border_color_red, set_border_color_red) =
      _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
     let (border_color_green, set_border_color_green) =
@@ -144,38 +146,45 @@ fn App(_hooks: &mut Hooks) -> Element {
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
         FocusRoot::el([FlowColumn::el([
-            row(
-                "Border Red Value",
-                F32Input {
-                    value: border_color_red,
-                    on_change: set_border_color_red,
-                }
+            Button::new("Border color config", move |_| {set_border_color_toggle(!border_color_toggle)})
+                .hotkey(VirtualKeyCode::Q)
                 .el(),
-            ),
-            row(
-                "Border Green Value",
-                F32Input {
-                    value: border_color_green, 
-                    on_change: set_border_color_green,
-                }
-                .el(),
-            ),
-            row(
-                "Border Blue Value",
-                F32Input {
-                    value: border_color_blue, 
-                    on_change: set_border_color_blue,
-                }
-                .el(),
-            ),
-            row(
-                "Border Alpha Value",
-                F32Input {
-                    value: border_color_alpha,
-                    on_change: set_border_color_alpha,
-                }
-                .el(),
-            ),
+            if border_color_toggle {
+                FlowColumn::el([
+                row(
+                    "Border Red Value",
+                    F32Input {
+                        value: border_color_red,
+                        on_change: set_border_color_red,
+                    }
+                    .el(),
+                ),
+                row(
+                    "Border Green Value",
+                    F32Input {
+                        value: border_color_green, 
+                        on_change: set_border_color_green,
+                    }
+                    .el(),
+                ),
+                row(
+                    "Border Blue Value",
+                    F32Input {
+                        value: border_color_blue, 
+                        on_change: set_border_color_blue,
+                    }
+                    .el(),
+                ),
+                row(
+                    "Border Alpha Value",
+                    F32Input {
+                        value: border_color_alpha,
+                        on_change: set_border_color_alpha,
+                    }
+                    .el(),
+                )])
+            } else {Element::new()},
+            
             row(
                 "Hour Red Value",
                 F32Input {
@@ -211,7 +220,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             
             ])
             .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
-            .with(width(), 200.)
+            .with(width(), 400.)
             .with(space_between_items(), STREET)
             .with_padding_even(STREET),
         ]),
