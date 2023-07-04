@@ -238,9 +238,46 @@ fn App(_hooks: &mut Hooks) -> Element {
                     )])
                     .with(space_between_items(), STREET)
             } else {Element::new()},
-            
-            
-            
+
+            Button::new("Minute hand color config", move |_| {set_minute_hand_color_toggle(!minute_hand_color_toggle)})
+                .hotkey(VirtualKeyCode::W)
+                .el(),
+                if minute_hand_color_toggle {
+                    FlowColumn::el([
+                    row(
+                        "Minute Red Value",
+                        F32Input {
+                            value: minute_hand_color_red,
+                            on_change: set_minute_hand_color_red,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Minute Green Value",
+                        F32Input {
+                            value: minute_hand_color_green, 
+                            on_change: set_minute_hand_color_green,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Minute Blue Value",
+                        F32Input {
+                            value: minute_hand_color_blue, 
+                            on_change: set_minute_hand_color_blue,
+                        }
+                        .el(),
+                    ),
+                    row(
+                        "Minute Alpha Value",
+                        F32Input {
+                            value: minute_hand_color_alpha,
+                            on_change: set_minute_hand_color_alpha,
+                        }
+                        .el(),
+                    )])
+                    .with(space_between_items(), STREET)
+            } else {Element::new()},
             ])
             .with(translation(), vec3(window_width_for_ui - 150., 0., 0.))
             .with(width(), 400.)
