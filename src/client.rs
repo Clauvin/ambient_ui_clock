@@ -339,8 +339,10 @@ fn App(_hooks: &mut Hooks) -> Element {
             Vec4{x:border_color_red, y:border_color_green, z:border_color_blue, w:border_color_alpha}),
         drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y,
             Vec4{x:hour_hand_color_red, y:hour_hand_color_green, z:hour_hand_color_blue, w:hour_hand_color_alpha}),
-        drawing::draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y),
-        drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y),
+        drawing::draw_static_minute_hand(clock_x_center, clock_y_center, minute_x, minute_y,
+            Vec4{x:minute_hand_color_red, y:minute_hand_color_green, z:minute_hand_color_blue, w:minute_hand_color_alpha}),
+        drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y,
+            Vec4{x:second_hand_color_red, y:second_hand_color_green, z:second_hand_color_blue, w:second_hand_color_alpha}),
     ])
     
 }
