@@ -124,7 +124,6 @@ fn App(_hooks: &mut Hooks) -> Element {
     });
 
     let (border_color_toggle, set_border_color_toggle) = _hooks.use_state(false);
-    let (hour_hand_color_toggle, set_hour_hand_color_toggle) = _hooks.use_state(false);
 
     let (border_color_red, set_border_color_red) =
      _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
@@ -135,7 +134,9 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (border_color_alpha, set_border_color_alpha) =
      _hooks.use_state(drawing::CLOCK_BORDER_COLOR.w);
 
-     let (hour_hand_color_red, set_hour_hand_color_red) =
+    let (hour_hand_color_toggle, set_hour_hand_color_toggle) = _hooks.use_state(false);
+
+    let (hour_hand_color_red, set_hour_hand_color_red) =
      _hooks.use_state(drawing::HOUR_COLOR.x);
     let (hour_hand_color_green, set_hour_hand_color_green) =
      _hooks.use_state(drawing::HOUR_COLOR.y);
