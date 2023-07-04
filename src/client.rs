@@ -251,7 +251,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Minute hand color config", move |_| {set_minute_hand_color_toggle(!minute_hand_color_toggle)})
-                .hotkey(VirtualKeyCode::W)
+                .hotkey(VirtualKeyCode::E)
                 .el(),
                 if minute_hand_color_toggle {
                     FlowColumn::el([
@@ -291,7 +291,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             } else {Element::new()},
 
             Button::new("Second hand color config", move |_| {set_second_hand_color_toggle(!second_hand_color_toggle)})
-            .hotkey(VirtualKeyCode::E)
+            .hotkey(VirtualKeyCode::R)
             .el(),
             if second_hand_color_toggle {
                 FlowColumn::el([
