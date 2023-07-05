@@ -67,9 +67,11 @@ fn App(_hooks: &mut Hooks) -> Element {
     set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
     set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
 
-    let (custom_time_zone_hour, set_custom_time_zone_hour) = _hooks.use_state(0);
+    let (custom_time_zone_hour, set_custom_time_zone_hour) = 
+        _hooks.use_state(0);
 
-    let (custom_time_zone_minute, set_custom_time_zone_minute) = _hooks.use_state(0);
+    let (custom_time_zone_minute, set_custom_time_zone_minute) = 
+        _hooks.use_state(0);
 
     let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
         _hooks.use_state(false);
