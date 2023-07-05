@@ -10,10 +10,12 @@ mod tests;
 
 static mut do_clock_size_test: bool = false;
 
-const border_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Q;
-const hour_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::W;
-const minute_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::E;
-const second_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::R;
+const custom_time_zone_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Q;
+const border_thickness_virtual_key_code: VirtualKeyCode = VirtualKeyCode::W;
+const border_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::E;
+const hour_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::R;
+const minute_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::T;
+const second_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Y;
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
