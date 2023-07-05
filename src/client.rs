@@ -187,6 +187,20 @@ fn App(_hooks: &mut Hooks) -> Element {
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
         FocusRoot::el([FlowColumn::el([
+            Button::new("Timezone", move |_| {set_custom_time_zone_toggle(!custom_time_zone_toggle)})
+                .hotkey(CUSTOM_TIME_ZONE_VIRTUAL_KEY_CODE)
+                .el(),
+            if custom_time_zone_toggle {
+                row(
+                    "Timezone hour",
+                    I32Input {
+                        value: custom_time_zone,
+                        on_change: set_custom_time_zone,
+                    }
+                    .el(),
+                )
+            } else {Element::new()},
+
             Button::new("Border thickness config", move |_| {set_border_thickness_toggle(!border_thickness_toggle)})
                 .hotkey(BORDER_THICKNESS_VIRTUAL_KEY_CODE)
                 .el(),
