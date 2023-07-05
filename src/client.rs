@@ -131,46 +131,46 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (border_color_toggle, set_border_color_toggle) = _hooks.use_state(false);
 
     let (border_color_red, set_border_color_red) =
-     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
+        _hooks.use_state(drawing::CLOCK_BORDER_COLOR.x);
     let (border_color_green, set_border_color_green) =
-     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.y);
+        _hooks.use_state(drawing::CLOCK_BORDER_COLOR.y);
     let (border_color_blue, set_border_color_blue) =
-     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.z);
+        _hooks.use_state(drawing::CLOCK_BORDER_COLOR.z);
     let (border_color_alpha, set_border_color_alpha) =
-     _hooks.use_state(drawing::CLOCK_BORDER_COLOR.w);
+        _hooks.use_state(drawing::CLOCK_BORDER_COLOR.w);
 
     let (hour_hand_color_toggle, set_hour_hand_color_toggle) = _hooks.use_state(false);
 
     let (hour_hand_color_red, set_hour_hand_color_red) =
-     _hooks.use_state(drawing::HOUR_COLOR.x);
+        _hooks.use_state(drawing::HOUR_COLOR.x);
     let (hour_hand_color_green, set_hour_hand_color_green) =
-     _hooks.use_state(drawing::HOUR_COLOR.y);
+        _hooks.use_state(drawing::HOUR_COLOR.y);
     let (hour_hand_color_blue, set_hour_hand_color_blue) =
-     _hooks.use_state(drawing::HOUR_COLOR.z);
+        _hooks.use_state(drawing::HOUR_COLOR.z);
     let (hour_hand_color_alpha, set_hour_hand_color_alpha) =
-     _hooks.use_state(drawing::HOUR_COLOR.w);
+        _hooks.use_state(drawing::HOUR_COLOR.w);
 
     let (minute_hand_color_toggle, set_minute_hand_color_toggle) = _hooks.use_state(false);
 
     let (minute_hand_color_red, set_minute_hand_color_red) =
-     _hooks.use_state(drawing::MINUTE_COLOR.x);
+        _hooks.use_state(drawing::MINUTE_COLOR.x);
     let (minute_hand_color_green, set_minute_hand_color_green) =
-     _hooks.use_state(drawing::MINUTE_COLOR.y);
+        _hooks.use_state(drawing::MINUTE_COLOR.y);
     let (minute_hand_color_blue, set_minute_hand_color_blue) =
-     _hooks.use_state(drawing::MINUTE_COLOR.z);
+        _hooks.use_state(drawing::MINUTE_COLOR.z);
     let (minute_hand_color_alpha, set_minute_hand_color_alpha) =
-     _hooks.use_state(drawing::MINUTE_COLOR.w);
+        _hooks.use_state(drawing::MINUTE_COLOR.w);
 
     let (second_hand_color_toggle, set_second_hand_color_toggle) = _hooks.use_state(false);
 
     let (second_hand_color_red, set_second_hand_color_red) =
-     _hooks.use_state(drawing::SECOND_COLOR.x);
+        _hooks.use_state(drawing::SECOND_COLOR.x);
     let (second_hand_color_green, set_second_hand_color_green) =
-     _hooks.use_state(drawing::SECOND_COLOR.y);
+        _hooks.use_state(drawing::SECOND_COLOR.y);
     let (second_hand_color_blue, set_second_hand_color_blue) =
-     _hooks.use_state(drawing::SECOND_COLOR.z);
+        _hooks.use_state(drawing::SECOND_COLOR.z);
     let (second_hand_color_alpha, set_second_hand_color_alpha) =
-     _hooks.use_state(drawing::SECOND_COLOR.w);
+        _hooks.use_state(drawing::SECOND_COLOR.w);
 
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
