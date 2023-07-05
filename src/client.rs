@@ -83,6 +83,11 @@ fn App(_hooks: &mut Hooks) -> Element {
         }
     }
 
+    let (custom_time_zone, set_custom_time_zone) = _hooks.use_state(0);
+
+    let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
+        _hooks.use_state(false);
+
     _hooks.use_frame(move |world|{
         let window_width = size_info[0].1.x;
         let window_height = size_info[0].1.y;
@@ -97,7 +102,7 @@ fn App(_hooks: &mut Hooks) -> Element {
         if latest - its_now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_its_now(latest);
             let date_and_time = clock_time::get_current_date_and_time();
-            let clock_hour = clock_time::get_current_hour12(date_and_time) as f32;
+            let clock_hour = clock_time::get_current_hour12(date_and_time) as f32 + custom_time_zone as f32;
             let clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
             let clock_second = clock_time::get_current_seconds(date_and_time) as f32;
 
@@ -129,11 +134,6 @@ fn App(_hooks: &mut Hooks) -> Element {
             set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
         }
     });
-
-    let (custom_time_zone, set_custom_time_zone) = _hooks.use_state(0);
-
-    let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
-        _hooks.use_state(false);
 
     let (border_thickness, set_border_thickness) = 
         _hooks.use_state(drawing::CLOCK_BORDER_SIZE);
