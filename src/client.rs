@@ -8,8 +8,6 @@ mod drawing;
 mod clock_time;
 mod tests;
 
-static mut do_clock_size_test: bool = false;
-
 const CUSTOM_TIME_ZONE_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::Q;
 const BORDER_THICKNESS_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::W;
 const BORDER_COLOR_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::E;
@@ -69,19 +67,6 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
     set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
-
-    //Yeah, for sure there's a much better way to do this. I'm going to work on it once ambient gets a good test system
-    //Also, why this test breaks the drawing of UI?
-    unsafe {
-        if do_clock_size_test {
-            clock_size_test(size_info[0].1.x, size_info[0].1.y);
-            window::set_fullscreen(true);
-            let size_info = _hooks.use_query(window_logical_size());
-            clock_size_test(size_info[0].1.x, size_info[0].1.y);
-            window::set_fullscreen(false);
-            do_clock_size_test = false;
-        }
-    }
 
     let (custom_time_zone_hour, set_custom_time_zone_hour) = _hooks.use_state(0);
 
