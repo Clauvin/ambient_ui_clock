@@ -7,13 +7,13 @@ pub const HOUR_COLOR: Vec4 = CLOCK_BORDER_COLOR;
 pub const MINUTE_COLOR: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
 pub const SECOND_COLOR: Vec4 = vec4(0.6, 0.1, 0.2, 1.);
 
-pub fn draw_circle(x_position: f32, y_position: f32, ray: f32, circle_border_color: Vec4) -> Element{
+pub fn draw_circle(x_position: f32, y_position: f32, ray: f32, thickness: f32, circle_border_color: Vec4) -> Element{
     Rectangle.el()
         .with(width(), ray*2.)
         .with(height(), ray*2.)
         .with(translation(), vec3(x_position-ray, y_position-ray, 0.01))
         .with(border_color(), circle_border_color)
-        .with(border_thickness(), 4.)
+        .with(border_thickness(), thickness)
         .with(border_radius(), vec4(ray,ray,ray,ray))
 }
 
