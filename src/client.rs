@@ -130,6 +130,11 @@ fn App(_hooks: &mut Hooks) -> Element {
         }
     });
 
+    let (custom_time_zone, set_custom_time_zone) = _hooks.use_state(0);
+
+    let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
+        _hooks.use_state(false);
+
     let (border_thickness, set_border_thickness) = 
         _hooks.use_state(drawing::CLOCK_BORDER_SIZE);
     
