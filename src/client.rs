@@ -40,7 +40,6 @@ fn App(_hooks: &mut Hooks) -> Element {
     let (clock_x_center, set_clock_x_center) = _hooks.use_state(clock_x_position);
     let (clock_y_center, set_clock_y_center) = _hooks.use_state(clock_y_position);
 
-    //same.
     let hour_ray: f32 = clock_ray/5.;
     let minute_ray: f32 = clock_ray/3.;
     let second_ray: f32 = clock_ray/2.;
