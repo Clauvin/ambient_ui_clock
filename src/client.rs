@@ -1,5 +1,4 @@
 use ambient_api::prelude::*;
-use tests::clock_size_test;
 
 use core::time::Duration;
 use ambient_api::window;
