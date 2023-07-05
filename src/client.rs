@@ -10,12 +10,12 @@ mod tests;
 
 static mut do_clock_size_test: bool = false;
 
-const custom_time_zone_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Q;
-const border_thickness_virtual_key_code: VirtualKeyCode = VirtualKeyCode::W;
-const border_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::E;
-const hour_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::R;
-const minute_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::T;
-const second_color_virtual_key_code: VirtualKeyCode = VirtualKeyCode::Y;
+const CUSTOM_TIME_ZONE_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::Q;
+const BORDER_THICKNESS_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::W;
+const BORDER_COLOR_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::E;
+const HOUR_COLOR_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::R;
+const MINUTE_COLOR_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::T;
+const SECOND_COLOR_VIRTUAL_KEY_CODE: VirtualKeyCode = VirtualKeyCode::Y;
 
 #[element_component]
 fn App(_hooks: &mut Hooks) -> Element {
@@ -130,6 +130,11 @@ fn App(_hooks: &mut Hooks) -> Element {
         }
     });
 
+    let (border_thickness, set_border_thickness) = 
+        _hooks.use_state(drawing::CLOCK_BORDER_SIZE);
+    
+    let (border_thickness_toggle, set_border_thickness_toggle) = _hooks.use_state(false);
+
     let (border_color_toggle, set_border_color_toggle) = _hooks.use_state(false);
 
     let (border_color_red, set_border_color_red) =
@@ -177,6 +182,20 @@ fn App(_hooks: &mut Hooks) -> Element {
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
     Group::el([
         FocusRoot::el([FlowColumn::el([
+            Button::new("Border thickness config", move |_| {set_border_thickness_toggle(!border_thickness_toggle)})
+                .hotkey(border_thickness_virtual_key_code)
+                .el(),
+            if border_thickness_toggle {
+                row(
+                    "Border thickness",
+                    F32Input {
+                        value: border_thickness,
+                        on_change: set_border_thickness,
+                    }
+                    .el(),
+                )
+            } else {Element::new()},
+
             Button::new("Border color config", move |_| {set_border_color_toggle(!border_color_toggle)})
                 .hotkey(border_color_virtual_key_code)
                 .el(),
@@ -342,7 +361,7 @@ fn App(_hooks: &mut Hooks) -> Element {
             .with(space_between_items(), STREET)
             .with_padding_even(STREET),
         ]),
-        drawing::draw_circle(clock_x_position, clock_y_position, clock_ray,
+        drawing::draw_circle(clock_x_position, clock_y_position, clock_ray, border_thickness,
             Vec4{x:border_color_red, y:border_color_green, z:border_color_blue, w:border_color_alpha}),
         drawing::draw_static_hour_hand(clock_x_center, clock_y_center, hour_x, hour_y,
             Vec4{x:hour_hand_color_red, y:hour_hand_color_green, z:hour_hand_color_blue, w:hour_hand_color_alpha}),
