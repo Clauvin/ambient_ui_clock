@@ -1,5 +1,7 @@
 use ambient_api::prelude::*;
 
+pub const CLOCK_BORDER_SIZE: f32 = 32.;
+
 pub const CLOCK_BORDER_COLOR: Vec4 = vec4(0.2, 0.1, 0.6, 1.);
 pub const HOUR_COLOR: Vec4 = CLOCK_BORDER_COLOR;
 pub const MINUTE_COLOR: Vec4 = vec4(0.2, 0.6, 0.1, 1.);
