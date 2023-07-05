@@ -85,6 +85,8 @@ fn App(_hooks: &mut Hooks) -> Element {
 
     let (custom_time_zone_hour, set_custom_time_zone_hour) = _hooks.use_state(0);
 
+    let (custom_time_zone_minute, set_custom_time_zone_minute) = _hooks.use_state(0);
+
     let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
         _hooks.use_state(false);
 
@@ -102,8 +104,8 @@ fn App(_hooks: &mut Hooks) -> Element {
         if latest - its_now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_its_now(latest);
             let date_and_time = clock_time::get_current_date_and_time();
-            let clock_minute = clock_time::get_current_minutes(date_and_time) as f32;
             let clock_hour = clock_time::get_current_hour12(date_and_time) as f32 + custom_time_zone_hour as f32;
+            let clock_minute = clock_time::get_current_minutes(date_and_time) as f32 + custom_time_zone_minute as f32;
             let clock_second = clock_time::get_current_seconds(date_and_time) as f32;
 
             //Originally, the code here would change the time based on the fact that one second had passed, 
@@ -191,6 +193,7 @@ fn App(_hooks: &mut Hooks) -> Element {
                 .hotkey(CUSTOM_TIME_ZONE_VIRTUAL_KEY_CODE)
                 .el(),
             if custom_time_zone_toggle {
+                FlowColumn::el([
                 row(
                     "Timezone hour",
                     I32Input {
@@ -198,7 +201,16 @@ fn App(_hooks: &mut Hooks) -> Element {
                         on_change: set_custom_time_zone_hour,
                     }
                     .el(),
-                )
+                ),
+                row(
+                    "Timezone minute",
+                    I32Input {
+                        value: custom_time_zone_minute,
+                        on_change: set_custom_time_zone_minute,
+                    }
+                    .el(),
+                )])
+                .with(space_between_items(), STREET)
             } else {Element::new()},
 
             Button::new("Border thickness config", move |_| {set_border_thickness_toggle(!border_thickness_toggle)})
