@@ -8,6 +8,7 @@ version = "0.0.1"
 [dependencies]
 ambient_api = "0.2.1"
 more-asserts = "0.3.1"
+chrono = "0.4.26"
 
 [[bin]]
 name = "client_ambient_ui_clock"
