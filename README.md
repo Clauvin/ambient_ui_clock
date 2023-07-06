@@ -1,4 +1,7 @@
 # ambient_ui_clock
+
+https://github.com/Clauvin/ambient_ui_clock/assets/5853416/a2dbf294-2fa8-4e16-853d-c988a0132b3e
+
 ![image](https://github.com/Clauvin/ambient_ui_clock/assets/5853416/62079177-30e2-4ccc-96f4-db91a96c381a)
 
 Expanded version of this Ambient [clock](https://github.com/AmbientRun/Ambient/blob/99becb620536bca5475e38317128f2300102d50f/guest/rust/examples/ui/clock/src/client.rs), created to learn more about coding with Rust and [Ambient](https://github.com/AmbientRun/Ambient) 0.2.1.
