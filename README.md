@@ -12,7 +12,7 @@ Expanded version of this Ambient [clock](https://github.com/AmbientRun/Ambient/b
 
 ## Known Bugs
 
-* When the second hand reaches the "45 seconds" position, it is not drawn.
+* When the clock's second hand is at the "45 seconds" position, it is not drawn.
 
 ## License
 
