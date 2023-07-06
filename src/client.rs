@@ -66,16 +66,16 @@ fn App(_hooks: &mut Hooks) -> Element {
     set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
     set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
 
-    let (custom_time_zone_hour, set_custom_time_zone_hour) = 
+    let (mut custom_time_zone_hour, set_custom_time_zone_hour) = 
         _hooks.use_state(0);
 
-    let (custom_time_zone_minute, set_custom_time_zone_minute) = 
+    let (mut custom_time_zone_minute, set_custom_time_zone_minute) = 
         _hooks.use_state(0);
 
-    let (custom_time_zone_toggle, set_custom_time_zone_toggle) = 
+    let (mut custom_time_zone_toggle, set_custom_time_zone_toggle) = 
         _hooks.use_state(false);
 
-    _hooks.use_frame(move |world|{
+    _hooks.use_frame(move |_|{
         let window_width = size_info[0].1.x;
         let window_height = size_info[0].1.y;
 
@@ -89,6 +89,7 @@ fn App(_hooks: &mut Hooks) -> Element {
         if latest - its_now > Duration::from_secs_f32(1.0).as_secs_f32() {
             set_its_now(latest);
             let date_and_time = clock_time::get_current_date_and_time();
+
             let clock_hour = clock_time::get_current_hour12(date_and_time) as f32 + custom_time_zone_hour as f32;
             let clock_minute = clock_time::get_current_minutes(date_and_time) as f32 + custom_time_zone_minute as f32;
             let clock_second = clock_time::get_current_seconds(date_and_time) as f32;
@@ -121,6 +122,18 @@ fn App(_hooks: &mut Hooks) -> Element {
             set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
         }
     });
+
+    if custom_time_zone_hour < -23 {
+        custom_time_zone_hour = -23;
+    } else if custom_time_zone_hour > 23 {
+        custom_time_zone_hour = 23;
+    }
+
+    if custom_time_zone_minute < -59 {
+        custom_time_zone_minute = -59;
+    } else if custom_time_zone_minute > 59 {
+        custom_time_zone_minute = 59;
+    }
 
     let (border_thickness, set_border_thickness) = 
         _hooks.use_state(drawing::CLOCK_BORDER_SIZE);
@@ -172,6 +185,7 @@ fn App(_hooks: &mut Hooks) -> Element {
         _hooks.use_state(drawing::SECOND_COLOR.w);
 
     let row = |name, editor| FlowRow::el(vec![Text::el(name).with(min_width(), 110.), editor]);
+
     Group::el([
         FocusRoot::el([FlowColumn::el([
             Button::new("Timezone", move |_| {set_custom_time_zone_toggle(!custom_time_zone_toggle)})
@@ -183,7 +197,7 @@ fn App(_hooks: &mut Hooks) -> Element {
                     "Timezone hour",
                     I32Input {
                         value: custom_time_zone_hour,
-                        on_change: set_custom_time_zone_hour,
+                        on_change: set_custom_time_zone_hour
                     }
                     .el(),
                 ),
@@ -386,7 +400,7 @@ fn App(_hooks: &mut Hooks) -> Element {
         drawing::draw_static_second_hand(clock_x_center, clock_y_center, second_x, second_y,
             Vec4{x:second_hand_color_red, y:second_hand_color_green, z:second_hand_color_blue, w:second_hand_color_alpha}),
     ])
-    
+
 }
 
 
