@@ -109,17 +109,16 @@ fn App(_hooks: &mut Hooks) -> Element {
                 clock_time::get_second_phase(clock_second)
             });
 
-            // for some reason, second 45 without 0.1 won't show.
-            // Maybe it happens with minute and hour 45 too, so I'm adding the same fix to those as well
-            // That said, I need to check those later, properly
-            set_hour_x(clock_x_center + hour_ray*(hour_phase.sin())+0.1);
-            set_hour_y(clock_y_center - hour_ray*(hour_phase.cos())-0.1);
+            //for some reason, when the second hand reaches 45 seconds,
+            //  the drawing of it does not happen.
+            set_hour_x(clock_x_center + hour_ray*(hour_phase.sin()));
+            set_hour_y(clock_y_center - hour_ray*(hour_phase.cos()));
 
-            set_minute_x(clock_x_center + minute_ray*(minute_phase.sin())+0.1);
-            set_minute_y(clock_y_center - minute_ray*(minute_phase.cos())-0.1);
+            set_minute_x(clock_x_center + minute_ray*(minute_phase.sin()));
+            set_minute_y(clock_y_center - minute_ray*(minute_phase.cos()));
 
-            set_second_x(clock_x_center + second_ray*(second_phase.sin())+0.1);
-            set_second_y(clock_y_center - second_ray*(second_phase.cos())-0.1);
+            set_second_x(clock_x_center + second_ray*(second_phase.sin()));
+            set_second_y(clock_y_center - second_ray*(second_phase.cos()));
         }
     });
 
